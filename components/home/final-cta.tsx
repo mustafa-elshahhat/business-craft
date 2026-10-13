@@ -1,35 +1,44 @@
-import { ButtonLink, TextLink } from "@/components/ui/button";
+import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { primaryCta, secondaryCta } from "@/lib/site";
+import { primaryCta } from "@/lib/site";
 
-/** Closing frame: oversized type on white between the navy process and footer. */
+/**
+ * Closing poster: a massive statement, generous space and one action.
+ * The navy steps down into it from Process and back up into the footer,
+ * where a single blue facet marks the fold.
+ */
 export function FinalCta() {
   return (
-    <section aria-labelledby="cta-title" className="bg-white py-28 text-navy md:py-36 lg:py-48">
-      <Container>
-        <p className="flex items-center gap-3 text-eyebrow uppercase text-action">
-          <span aria-hidden="true" className="h-px w-8 bg-action" />
-          Let’s build together
-        </p>
-        <h2 id="cta-title" className="mt-8 text-closing">
+    <section aria-labelledby="cta-title" className="relative bg-white text-navy">
+      <div aria-hidden="true" className="-mt-px step-down bg-navy [--step-x:66%]" />
+
+      <Container className="pt-24 pb-32 md:pt-32 lg:pt-40 lg:pb-48">
+        <h2
+          id="cta-title"
+          className="text-[clamp(3.5rem,0.5rem+12.2vw,12.5rem)] leading-[0.84] font-bold tracking-[-0.06em] lg:mt-14"
+        >
           Ready to Grow
           <br />
           Your Business<span className="text-action">?</span>
         </h2>
-        <div className="mt-14 grid gap-10 border-t border-line-strong pt-10 lg:mt-20 lg:grid-cols-12 lg:items-center lg:gap-x-10">
-          <p className="max-w-[30rem] text-lead text-muted lg:col-span-6">
+
+        <div className="mt-14 lg:mt-20 lg:ml-[58.33%]">
+          <p className="max-w-[26rem] text-[1.0625rem] leading-relaxed text-muted">
             Get a free consultation and let’s discuss your project, your goals and the right way to build it.
           </p>
-          <div className="flex flex-wrap items-center gap-x-8 gap-y-4 lg:col-span-6 lg:justify-end">
-            <ButtonLink href={primaryCta.href} arrow>
+          <div className="mt-8">
+            <ButtonLink href={primaryCta.href} arrow className="whitespace-nowrap">
               {primaryCta.label}
             </ButtonLink>
-            <TextLink href={secondaryCta.href}>
-              {secondaryCta.label}
-            </TextLink>
           </div>
         </div>
       </Container>
+
+      {/* Step up into the footer, with one blue facet on the fold */}
+      <div aria-hidden="true" className="relative -mb-px">
+        <div className="step-up bg-navy [--step-x:42%]" />
+        <div className="step-facet absolute inset-0 bg-action [--step-x:42%]" />
+      </div>
     </section>
   );
 }

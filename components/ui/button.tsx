@@ -15,7 +15,8 @@ const variants = {
   /** Outline for light surfaces. */
   "secondary-light": `${standard} border border-navy text-navy hover:bg-navy hover:text-white`,
   /** Compact, quiet outline used in the header so it never competes with the H1. */
-  quiet: "min-h-11 border border-white/22 px-4 text-sm font-medium text-white hover:border-white/55 hover:bg-white/5",
+  quiet:
+    "min-h-11 border border-white/20 px-4 text-[0.8125rem] font-medium tracking-[0.01em] text-white hover:border-white/55 hover:bg-white/5",
 } as const;
 
 type ButtonLinkProps = ComponentProps<typeof Link> & {

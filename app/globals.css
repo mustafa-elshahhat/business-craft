@@ -17,9 +17,9 @@
   --color-muted: #64748b;
   --color-subtle: #94a3b8;
   --color-light: #f8fafc;
-  --color-line: rgb(11 19 32 / 0.1);
+  --color-line: rgb(11 19 32 / 0.12);
   --color-line-strong: rgb(11 19 32 / 0.18);
-  --color-line-dark: rgb(255 255 255 / 0.12);
+  --color-line-dark: rgb(248 250 252 / 0.14);
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
@@ -64,7 +64,7 @@
   --text-eyebrow--letter-spacing: 0.14em;
   --text-eyebrow--font-weight: 600;
 
-  --radius-control: 10px;
+  --radius-control: 6px;
   --radius-card: 14px;
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
@@ -115,25 +115,96 @@
   margin-left: calc(var(--gutter) * -1);
 }
 
-@utility hero-title {
-  font-size: var(--text-display);
-  line-height: var(--text-display--line-height);
-  letter-spacing: var(--text-display--letter-spacing);
-  font-weight: var(--text-display--font-weight);
+/*
+ * "Crafted Systems" geometry, taken from the locked B monogram:
+ * - the angled cut under the top bar (about 31°): facet-tl
+ * - the 45° fold at the lower left: facet-bl / facet-br
+ * - the step where the bar meets the bowl: step-down / step-up edges
+ * Clip paths only. The logo itself is never redrawn.
+ */
+:root {
+  --facet: clamp(1.75rem, 1rem + 3.4vw, 4.5rem);
+  --step-h: clamp(2rem, 1.25rem + 2.4vw, 3.75rem);
+  --step-x: 58%;
+}
+
+@utility facet-tl {
+  clip-path: polygon(var(--facet) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--facet) * 0.6));
+}
+
+@utility facet-br {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--facet)), calc(100% - var(--facet)) 100%, 0 100%);
+}
+
+@utility facet-bl {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, var(--facet) 100%, 0 calc(100% - var(--facet)));
+}
+
+/* Small blue facet that sits in a facet-tl cut, echoing the two-tone mark. */
+@utility facet-mark {
+  width: calc(var(--facet) * 0.62);
+  height: calc(var(--facet) * 0.37);
+  clip-path: polygon(0 0, 100% 0, 0 100%);
+}
+
+/* Stepped chapter edges: a band of the section colour with one 45° step. */
+@utility step-down {
+  height: var(--step-h);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, calc(var(--step-x) + var(--step-h)) 100%, var(--step-x) 0);
+}
+
+@utility step-up {
+  height: var(--step-h);
+  clip-path: polygon(0 100%, 0 0, calc(100% - var(--step-x) - var(--step-h)) 0, calc(100% - var(--step-x)) 100%);
+}
+
+/* Blue fold facet riding the diagonal of a step-up edge. */
+@utility step-facet {
+  clip-path: polygon(
+    calc(100% - var(--step-x) - var(--step-h)) 0,
+    calc(100% - var(--step-x) - var(--step-h) * 0.4) 0,
+    calc(100% - var(--step-x)) 100%
+  );
+}
+
+/*
+ * Hero type scale. Desktop H1 reaches 96px; the interlocking hero media
+ * starts below its second line, so both read from one variable.
+ */
+@utility hero-scale {
+  --hero-fs: clamp(2.5rem, 1rem + 7vw, 4.5rem);
+  --hero-lh: 0.94;
   @media (min-width: 64rem) {
-    font-size: clamp(3.25rem, 0.25rem + 4.7vw, 4.5rem);
+    --hero-fs: clamp(4.25rem, 6.55vw, 6rem);
+    --hero-lh: 0.92;
   }
 }
 
 /*
- * Scroll reveal for project media: CSS scroll-driven, no JavaScript.
- * Browsers without support, and anyone preferring reduced motion,
- * get the final state immediately.
+ * Hero entrance: CSS only, plays once on load, ends in the resting state.
  */
-@keyframes reveal {
+@keyframes line-up {
+  from {
+    transform: translateY(104%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes facet-wipe {
+  from {
+    clip-path: polygon(0 0, 0 0, -40% 100%, -40% 100%);
+  }
+  to {
+    clip-path: polygon(0 0, 140% 0, 100% 100%, -40% 100%);
+  }
+}
+
+@keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(28px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -141,13 +212,77 @@
   }
 }
 
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .reveal {
-      animation: reveal linear both;
-      animation-timeline: view();
-      animation-range: entry 0% entry 45%;
-    }
+@media (prefers-reduced-motion: no-preference) {
+  .enter-line > span {
+    animation: line-up 700ms var(--ease-out-soft) both;
+  }
+  .enter-line:nth-child(2) > span {
+    animation-delay: 70ms;
+  }
+  .enter-line:nth-child(3) > span {
+    animation-delay: 140ms;
+  }
+  .enter-line:nth-child(4) > span {
+    animation-delay: 210ms;
+  }
+  .enter-wipe {
+    animation: facet-wipe 700ms var(--ease-out-soft) 200ms both;
+  }
+  .enter-fade {
+    animation: fade-up 600ms var(--ease-out-soft) 320ms both;
+  }
+}
+
+/* Line mask: clips the rising line without cutting descenders. */
+.enter-line {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.enter-line > span {
+  display: block;
+}
+
+/*
+ * Scroll reveals. Content is visible by default; hidden states apply only
+ * after <MotionObserver> confirms JavaScript and no reduced-motion
+ * preference by setting data-motion on <html>.
+ */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition-timing-function: var(--ease-out-soft);
+  }
+  [data-reveal="wipe"] {
+    clip-path: polygon(0 0, 140% 0, 100% 100%, -40% 100%);
+    transition-property: clip-path;
+    transition-duration: 700ms;
+  }
+  [data-reveal="wipe"] img {
+    transition: transform 700ms var(--ease-out-soft);
+  }
+  [data-reveal="rise"] {
+    transition-property: opacity, transform;
+    transition-duration: 500ms;
+  }
+  [data-reveal="line"] {
+    transform-origin: left;
+    transition-property: transform;
+    transition-duration: 700ms;
+  }
+
+  :root[data-motion] [data-reveal="wipe"]:not([data-shown]) {
+    clip-path: polygon(0 0, 0 0, -40% 100%, -40% 100%);
+  }
+  :root[data-motion] [data-reveal="wipe"]:not([data-shown]) img {
+    transform: scale(1.06);
+  }
+  :root[data-motion] [data-reveal="rise"]:not([data-shown]) {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  :root[data-motion] [data-reveal="line"]:not([data-shown]) {
+    transform: scaleX(0);
   }
 }
 

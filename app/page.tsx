@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { FeaturedWork } from "@/components/home/featured-work";
 import { FinalCta } from "@/components/home/final-cta";
 import { Hero } from "@/components/home/hero";
+import { MotionObserver } from "@/components/home/motion-observer";
 import { ProcessSection } from "@/components/home/process-section";
 import { ServicesSection } from "@/components/home/services-section";
 import { TestimonialsSection } from "@/components/home/testimonials-section";
@@ -22,6 +23,7 @@ export default function HomePage() {
       <ProcessSection />
       <TestimonialsSection />
       <FinalCta />
+      <MotionObserver />
     </>
   );
 }

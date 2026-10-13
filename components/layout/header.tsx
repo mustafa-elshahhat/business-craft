@@ -7,16 +7,16 @@ import { MobileMenu } from "./mobile-menu";
 import { NavLinks } from "./nav-links";
 
 /**
- * Site header. Sits on navy so it flows straight into the dark hero that
- * opens every page (docs/PAGE_BLUEPRINTS.md: "visually quiet").
+ * Site header. Sits on navy so it dissolves into the dark hero that opens
+ * every page: no rule, small type, a rectangular hairline CTA.
  */
 export function Header() {
   return (
     <header className="relative z-50 bg-navy text-white">
-      <Container className="flex h-18 items-center justify-between gap-6 md:h-20">
-        <Logo surface="dark" className="h-8 md:h-9" />
+      <Container className="flex h-16 items-center justify-between gap-6 md:h-20">
+        <Logo surface="dark" className="h-7 md:h-8" />
 
-        <div className="flex items-center gap-6 xl:gap-10">
+        <div className="flex items-center gap-4 xl:gap-8">
           <nav aria-label="Main" className="hidden lg:block">
             <NavLinks />
           </nav>

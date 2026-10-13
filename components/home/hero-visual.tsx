@@ -3,37 +3,44 @@ import Image from "next/image";
 import type { FeaturedProject } from "@/content/projects";
 
 /**
- * Hero interface composition built from real screenshots of a live project:
- * the desktop page runs to the viewport edge, the mobile page overlaps its
- * lower-left corner. No device chrome, no fake UI.
+ * Hero media built from real screenshots of one live project: a raw desktop
+ * crop cut with the monogram's top-bar angle and bleeding off the right edge,
+ * and the same site on a phone overlapping its lower-left corner.
+ * No device chrome, no invented UI.
  */
 export function HeroVisual({ project }: { project: FeaturedProject }) {
-  const { primary, mobile } = project.media;
+  const { cover, primary, mobile } = project.media;
+  const main = cover ?? primary;
 
   return (
     <figure className="relative bleed-right">
-      <div className="relative pl-[28%] sm:pl-[26%] lg:pl-0">
-        <div className="relative aspect-[2/1] overflow-hidden rounded-l-[4px] bg-charcoal outline outline-1 -outline-offset-1 outline-white/10">
-          <Image
-            src={primary.src}
-            alt={primary.alt}
-            fill
-            sizes="(min-width: 1024px) 66vw, 85vw"
-            loading="eager"
-            fetchPriority="high"
-            placeholder="blur"
-            className="object-cover object-left-top"
-          />
+      <div className="relative ml-[30%] lg:ml-0">
+        {/* Offset rule continuing the image's top edge to the left */}
+        <span aria-hidden="true" className="absolute top-0 right-full hidden h-px w-[28%] bg-line-dark lg:block" />
+        <div className="enter-wipe relative">
+          <div className="facet-tl relative aspect-[6/5] overflow-hidden bg-charcoal">
+            <Image
+              src={main.src}
+              alt={main.alt}
+              fill
+              sizes="(min-width: 1280px) 45vw, (min-width: 1024px) 38vw, 76vw"
+              loading="eager"
+              fetchPriority="high"
+              placeholder="blur"
+              className="object-cover object-left-top"
+            />
+          </div>
+          <span aria-hidden="true" className="facet-mark absolute top-0 left-0 bg-accent" />
         </div>
 
         {mobile ? (
-          <div className="absolute top-[14%] left-0 w-[30%] sm:w-[24%] lg:top-auto lg:bottom-[-14%] lg:-left-[16%] lg:w-[17%]">
-            <div className="relative aspect-[9/19] overflow-hidden rounded-[10px] bg-charcoal outline outline-1 -outline-offset-1 outline-white/15 ring-[5px] ring-navy sm:rounded-[14px] sm:ring-[7px]">
+          <div className="enter-fade absolute bottom-[-16%] left-[-38%] w-[34%] lg:bottom-[-14%] lg:left-[-29%] lg:w-[26%]">
+            <div className="relative aspect-[780/1688] overflow-hidden rounded-[6px] bg-charcoal outline outline-1 -outline-offset-1 outline-white/15 ring-[6px] ring-navy">
               <Image
                 src={mobile.src}
                 alt={mobile.alt}
                 fill
-                sizes="(min-width: 1024px) 13vw, (min-width: 640px) 24vw, 30vw"
+                sizes="(min-width: 1024px) 12vw, 26vw"
                 loading="eager"
                 placeholder="blur"
                 className="object-cover object-top"
@@ -43,9 +50,9 @@ export function HeroVisual({ project }: { project: FeaturedProject }) {
         ) : null}
       </div>
 
-      <figcaption className="mt-[calc(36%+1.5rem)] flex items-baseline gap-3 text-sm text-white/60 sm:mt-[calc(24%+1.5rem)] lg:mt-6 lg:pl-[5%]">
+      <figcaption className="mt-4 ml-[30%] flex flex-wrap items-baseline gap-x-3 gap-y-1 pr-[var(--gutter)] text-[0.8125rem] text-white/60 lg:mt-5 lg:ml-[12%]">
         <span className="font-medium text-white">{project.name}</span>
-        <span aria-hidden="true" className="h-px w-6 translate-y-[-0.25em] bg-white/30" />
+        <span aria-hidden="true" className="h-px w-6 translate-y-[-0.3em] bg-white/30" />
         <span>Live online store</span>
       </figcaption>
     </figure>

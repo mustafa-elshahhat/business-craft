@@ -21,8 +21,8 @@ export function NavLinks() {
             <Link
               href={item.href}
               aria-current={active ? "page" : undefined}
-              className={`relative inline-flex min-h-11 items-center px-3 text-sm font-medium transition-colors duration-300 after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:bg-accent after:transition-transform after:duration-300 ${
-                active ? "text-white after:scale-x-100" : "text-white/65 after:scale-x-0 hover:text-white hover:after:scale-x-100"
+              className={`relative inline-flex min-h-11 items-center px-3 text-[0.8125rem] font-medium tracking-[0.01em] transition-colors duration-300 after:absolute after:inset-x-3 after:bottom-1.5 after:h-px after:origin-left after:bg-accent after:transition-transform after:duration-300 ${
+                active ? "text-white after:scale-x-100" : "text-white/60 after:scale-x-0 hover:text-white hover:after:scale-x-100"
               }`}
             >
               {item.label}

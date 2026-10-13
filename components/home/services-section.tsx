@@ -1,71 +1,76 @@
-import Link from "next/link";
-import { ArrowRight } from "lucide-react";
-
 import { TextLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { serviceHref, services } from "@/content/services";
+import { Facet } from "@/components/ui/facet";
+import { getProject, projects, type Project } from "@/content/projects";
+import { services, type ServiceSlug } from "@/content/services";
+
+import { ServiceIndex, type ServiceVisual } from "./service-index";
+
+function shot(project: Project, kind: "primary" | "mobile" = "primary") {
+  const image = project.media?.[kind];
+  if (!image) throw new Error(`Missing ${kind} image for ${project.slug}`);
+  return image;
+}
 
 /**
- * Editorial service index: numbered rows separated by rules instead of a
- * card grid. Each row is one link; hover shifts the title, draws the rule
- * and moves the arrow.
+ * What each service row shows. Only real work: where no interface can be
+ * published yet (systems), the visual names the real projects instead.
  */
+const visuals: Record<ServiceSlug, ServiceVisual> = {
+  websites: {
+    kind: "image",
+    image: shot(getProject("saad-logistic")),
+    caption: ["Saad Logistic", "Company website"],
+  },
+  ecommerce: {
+    kind: "image",
+    image: shot(getProject("dermiva-skincare")),
+    caption: ["Dermiva Skincare", "Online store"],
+  },
+  systems: {
+    kind: "list",
+    items: projects.filter((project) => project.category === "Systems").map((project) => project.name),
+    caption: ["From our portfolio", "Systems projects"],
+  },
+  "mobile-apps": {
+    kind: "phones",
+    images: [shot(getProject("zts-fashion"), "mobile"), shot(getProject("dr-mirror"), "mobile")],
+    caption: ["ZTS Fashion · Dr Mirror", "Mobile-first storefronts"],
+  },
+};
+
 export function ServicesSection() {
   return (
-    <section aria-labelledby="services-title" className="bg-light py-24 text-navy md:py-28 lg:py-36">
-      <Container>
-        <div className="grid gap-8 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-7">
-            <p className="text-eyebrow uppercase text-action">Services</p>
-            <h2 id="services-title" className="mt-5 max-w-[16ch] text-h2 text-balance">
+    <section aria-labelledby="services-title" className="relative bg-light text-navy">
+      {/* Stepped edge continuing the navy hero into this chapter */}
+      <div aria-hidden="true" className="-mt-px step-down bg-navy" />
+
+      <Container className="pt-20 pb-24 md:pt-24 lg:pt-28 lg:pb-36">
+        <div className="grid gap-y-8 lg:grid-cols-12 lg:gap-x-10">
+          <p className="flex items-center gap-3 self-start text-[0.75rem] font-medium tracking-[0.16em] text-muted uppercase lg:col-span-3 lg:pt-4">
+            <Facet className="size-2" />
+            Services
+            <span className="tabular-nums text-muted">/ 04</span>
+          </p>
+          <div className="lg:col-span-8 lg:col-start-4">
+            <h2
+              id="services-title"
+              className="max-w-[18ch] text-[clamp(2.125rem,1.3rem+3.2vw,4rem)] leading-[1.02] font-bold tracking-[-0.04em] text-balance"
+            >
               Built around the way your business actually works.
             </h2>
-          </div>
-          <div className="lg:col-span-4 lg:col-start-9">
-            <p className="max-w-[34rem] text-lead text-muted">
-              Four disciplines, one clear process: from a first website to the systems your team runs on.
-            </p>
-            <TextLink href="/services" className="mt-3">
-              View All Services
-            </TextLink>
+            <div className="mt-8 flex flex-wrap items-end justify-between gap-x-10 gap-y-4">
+              <p className="max-w-[30rem] text-[1.0625rem] leading-relaxed text-muted">
+                Four disciplines, one clear process: from a first website to the systems your team runs on.
+              </p>
+              <TextLink href="/services">View All Services</TextLink>
+            </div>
           </div>
         </div>
 
-        <ol className="mt-16 border-b border-line-strong lg:mt-24">
-          {services.map((service, index) => (
-            <li
-              key={service.slug}
-              className="group relative border-t border-line-strong has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-4 has-[a:focus-visible]:outline-accent"
-            >
-              {/* Rule draws across on hover */}
-              <span
-                aria-hidden="true"
-                className="absolute inset-x-0 -top-px h-px origin-left scale-x-0 bg-navy transition-transform duration-500 ease-out-soft group-hover:scale-x-100"
-              />
-              <div className="grid grid-cols-[3rem_1fr_auto] items-baseline gap-x-4 py-8 md:grid-cols-[4rem_1fr_auto] lg:grid-cols-12 lg:gap-x-10 lg:py-11">
-                <span className="text-sm font-medium tabular-nums text-muted lg:col-span-1">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <h3 className="text-index transition-transform duration-500 ease-out-soft group-hover:translate-x-2 lg:col-span-5">
-                  <Link
-                    href={serviceHref(service.slug)}
-                    className="outline-none after:absolute after:inset-0 after:content-['']"
-                  >
-                    {service.title}
-                  </Link>
-                </h3>
-                <ArrowRight
-                  aria-hidden="true"
-                  className="size-6 self-center text-navy transition-[transform,color] duration-500 ease-out-soft group-hover:translate-x-1.5 group-hover:text-action lg:order-last lg:col-span-1 lg:justify-self-end"
-                  strokeWidth={1.5}
-                />
-                <p className="col-start-2 col-end-4 mt-3 max-w-[34rem] text-base leading-relaxed text-muted lg:col-span-5 lg:col-start-auto lg:mt-0">
-                  {service.summary}
-                </p>
-              </div>
-            </li>
-          ))}
-        </ol>
+        <ServiceIndex
+          services={services.map((service) => ({ ...service, visual: visuals[service.slug] }))}
+        />
       </Container>
     </section>
   );
