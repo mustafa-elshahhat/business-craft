@@ -49,3 +49,20 @@ When anything conflicts, use this order:
 ## Reference files
 
 See `docs/REFERENCES.md` for the purpose of every image.
+
+## Website development
+
+The site is a Next.js (App Router) + TypeScript + Tailwind CSS v4 app in this repository.
+
+```sh
+npm install
+npm run dev        # http://localhost:3000
+npm run check      # ESLint + TypeScript (route types generated first)
+npm run build      # production build
+```
+
+- Requires Node.js 20.9 or newer.
+- Pending business values (production domain, contact details, social links) are configured through environment variables. See `.env.example` and `lib/site.ts`; unset values are never rendered.
+- Search indexing (robots, sitemap) stays disabled until `SITE_URL` is set.
+- Logo and favicon assets in `public/brand/` are final and locked (`docs/BRAND_ASSETS.md`).
+- Project content lives in `content/`. Publish only verified facts (`docs/CONTENT_AND_PROJECTS.md`).
