@@ -1,5 +1,7 @@
 # Business Craft — Master Prompt for Coding Agent
 
+> **Historical.** This is part of the original pre-build brief. The shipped site is documented in `README.md`, `docs/DESIGN_SYSTEM.md`, `docs/PAGE_BLUEPRINTS.md` and `docs/CONTENT_AND_PROJECTS.md`; where they differ, those files win. Concept images may show placeholder content that must not be published.
+
 Copy the prompt below into the coding agent together with this entire folder.
 
 ```text

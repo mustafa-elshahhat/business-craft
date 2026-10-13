@@ -1,5 +1,7 @@
 # Pack Manifest
 
+> **Historical.** Manifest of the original handoff pack. See `README.md` for the current project structure.
+
 ## Documents
 
 - `README.md` — handoff entry point and source-of-truth rules

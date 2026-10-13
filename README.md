@@ -1,51 +1,78 @@
-# Business Craft — Agent Implementation Pack
+# Business Craft — website
 
-This folder is the handoff package for implementing the real **Business Craft** website from the approved visual direction.
+Marketing website for **Business Craft**, a digital solutions studio building websites, e-commerce stores, business systems and mobile apps. English only.
 
-## Source-of-truth order
+Next.js 16 (App Router, Cache Components) · React 19 · TypeScript · Tailwind CSS v4.
 
-When anything conflicts, use this order:
+## Run it
 
-1. `docs/BUSINESS_CRAFT_MASTER_SPEC.md` — product/brand truth.
-2. `docs/DESIGN_SYSTEM.md` — visual and UI rules.
-3. `docs/PAGE_BLUEPRINTS.md` — page structure and behavior.
-4. `docs/CONTENT_AND_PROJECTS.md` — known real content and publishing rules.
-5. `references/03-approved-brand-board.png` — approved visual identity reference.
-6. Page mockups in `references/04...07` — layout/composition references, not literal content truth.
-7. `references/01...02` — historical direction-selection material only.
+```sh
+npm install
+npm run dev        # http://localhost:3000
+npm run check      # ESLint + TypeScript (route types generated first)
+npm run build      # production build
+npm run start      # serve the production build
+```
 
-## Critical rule
+Requires Node.js 20.9 or newer.
 
-**Do not blindly copy claims, numbers, testimonials, dates, prices, contact details, or project results from the generated mockups.** Some visible values are conceptual placeholders. The implemented website must only publish facts that are verified in the repo, supplied by the owner, or explicitly listed as approved in the docs.
+## Configuration
 
-## Approved direction
+All business values come from environment variables, documented in [`.env.example`](.env.example) and read in [`lib/site.ts`](lib/site.ts). Every variable is optional and an unset value is never rendered.
 
-- Brand: **Business Craft**
-- Direction: **Minimal / Premium / Editorial**
-- Language: **English only**
-- Services: **Websites / E-commerce / Systems / Mobile Apps**
-- Primary navy: `#0B1320`
-- Secondary charcoal: `#1F2937`
-- Accent blue: `#3B82F6`
-- Gray: `#94A3B8`
-- Light: `#F8FAFC`
-- Typeface: **Inter**
-- Logo direction: geometric **B** monogram + Business Craft wordmark
+| Variable | Effect |
+|---|---|
+| `SITE_URL` | Production origin. Enables canonical URLs, absolute Open Graph URLs, structured data, the sitemap and `robots: allow`. Without it the site is kept out of search. |
+| `CONTACT_EMAIL`, `CONTACT_PHONE`, `CONTACT_WHATSAPP` | Direct contact channels (contact page, closing sections, footer). |
+| `CONTACT_WEBHOOK_URL` | Server-only HTTPS endpoint that receives enquiries as a JSON POST. Without it the form is shown as not connected. |
+| `SOCIAL_*_URL` | Footer social links. |
 
-## Recommended implementation order
+Pages are prerendered, so these values are read at build time. Redeploy after changing them.
 
-1. Foundation and tokens
-2. Header + footer
-3. Homepage
-4. Services overview
-5. Work / Case Studies
-6. Project detail template
-7. About
-8. Contact / Get a Quote
-9. Service detail templates: Websites, E-commerce, Systems, Mobile Apps
-10. Responsive/mobile QA
-11. Final shared design system cleanup
+### Enquiry form
 
-## Reference files
+`app/contact/actions.ts` validates every field on the server, drops obvious spam (a hidden honeypot field and a minimum fill time), and POSTs this JSON to `CONTACT_WEBHOOK_URL`:
 
-See `docs/REFERENCES.md` for the purpose of every image.
+```json
+{ "name": "", "company": "", "email": "", "phone": "", "service": "", "message": "", "source": "business-craft-website", "submittedAt": "ISO date" }
+```
+
+Success is shown only after the endpoint answers with a 2xx status. Any form service or automation tool that accepts a JSON webhook (and forwards it to email or a CRM) works.
+
+## Deployment
+
+Built for Vercel (or any Node host running `next start`). No special build settings: build command `npm run build`, output managed by Next.js. Set the environment variables above for the Production environment, then deploy. Leave `SITE_URL` unset on preview deployments so they are not indexed.
+
+Static media in `public/media/work/` (muted MP4/WebM clips) and the locked brand assets in `public/brand/` are served as-is; project screenshots in `assets/projects/` are optimised by `next/image`.
+
+## Project structure
+
+```
+app/                 Routes: /, /services, /services/[slug], /work, /work/[slug], /about, /contact,
+                     plus sitemap, robots, manifest, Open Graph image and 404
+components/layout/   Header (theme-aware), desktop dropdowns, mobile menu, footer
+components/home/     Homepage sections and their interactive parts
+components/sections/ Shared page sections: hero, process track, closing CTA, device pair, breadcrumbs, JSON-LD
+components/ui/       Buttons, container, headings, spec sheet
+components/contact/  Enquiry form (client) — the action lives in app/contact/actions.ts
+content/             Services, projects, case studies, company copy, enquiry options
+lib/                 Site configuration, metadata helper, contact delivery config
+assets/projects/     Production project screenshots (real captures of the live sites)
+assets/captures/     Capture notes (CAPTURES.md); raw masters are not committed
+public/brand/        Locked logo and favicon system
+```
+
+Server Components by default; client components only where interaction needs them (navigation, the live-work window, the Soulmate story, scroll tracking, videos, the form).
+
+## Content rules
+
+Publish only verified facts. Project facts and their evidence are recorded in [`docs/CONTENT_AND_PROJECTS.md`](docs/CONTENT_AND_PROJECTS.md) and `assets/captures/*/CAPTURES.md`. No invented metrics, testimonials, clients, dates or technology stacks.
+
+## Documentation
+
+- [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md) — the shipped design system
+- [`docs/PAGE_BLUEPRINTS.md`](docs/PAGE_BLUEPRINTS.md) — page structure as built
+- [`docs/CONTENT_AND_PROJECTS.md`](docs/CONTENT_AND_PROJECTS.md) — projects, verified facts, publishing rules
+- [`docs/BRAND_ASSETS.md`](docs/BRAND_ASSETS.md) — locked logo system
+- [`docs/BUSINESS_CRAFT_MASTER_SPEC.md`](docs/BUSINESS_CRAFT_MASTER_SPEC.md) — brand and positioning
+- `docs/AGENT_MASTER_PROMPT.md`, `docs/REFERENCES.md`, `references/` — original brief and concept references (historical)
