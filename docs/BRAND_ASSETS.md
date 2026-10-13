@@ -1,6 +1,22 @@
 # Business Craft — Brand Assets
 
-Production logo files live in `public/brand/`. They are vector conversions of the 12 approved logo PNGs (October 2026), which remain the visual source of truth. All SVGs have transparent backgrounds, use outlined shapes only (no fonts, no embedded images) and have tight viewBoxes. Clear space is handled in layout, not inside the files.
+**Status: final and locked.** Do not modify the logo system unless the owner explicitly requests it.
+
+## Where things live
+
+| Location | Contents |
+|---|---|
+| `references/logo/approved/` | The 12 approved logo PNGs: the **immutable raster masters** and visual source of truth. Never edit, recompress, resize or replace them. |
+| `public/brand/` | The **production website assets**: vector logos and favicon/app icons generated from the masters. |
+| `scripts/brand/` | Maintenance utilities that reproduce and QA the production assets. They never run automatically; see `scripts/brand/README.md`. |
+| `docs/brand/qa/logo contact sheet.png` | QA record: approved PNG vs rendered SVG for all 12 assets. Documentation only; not shipped. |
+
+All production SVGs:
+- have transparent backgrounds;
+- use outlined shapes only, with no fonts, embedded images, masks or filters;
+- have tight viewBoxes.
+
+Clear space is handled in layout, not inside the files. Every colour lockup and the favicon use the same canonical B geometry.
 
 ## Logos — `public/brand/logo/`
 
@@ -12,7 +28,7 @@ Production logo files live in `public/brand/`. They are vector conversions of th
 | `horizontal logo dark.svg` | Dark / navy backgrounds, wide spaces | Colour B, single-line light wordmark, tagline |
 | `compact logo light.svg` | Light backgrounds: header and other tight placements | Colour B, stacked navy wordmark, no tagline |
 | `compact logo dark.svg` | Dark / navy backgrounds: header and other tight placements | Colour B, stacked light wordmark, no tagline |
-| `monogram color.svg` | Any background where the B stands alone | Colour B (three approved blue tones) |
+| `monogram color.svg` | Any background where the B stands alone | Colour B (the three logo-mark blues) |
 | `monogram black.svg` | Single-colour use on light backgrounds | Navy B |
 | `monogram white.svg` | Single-colour use on dark backgrounds | Light B |
 | `wordmark dark.svg` | Wordmark without the B, light backgrounds | Navy "Business Craft" |
@@ -33,15 +49,28 @@ Production logo files live in `public/brand/`. They are vector conversions of th
 
 ## Colours
 
-| Token | Hex | Where it appears in the logos |
-|---|---|---|
-| Brand Navy | `#0B1320` | Wordmark on light, monogram black, favicon tile |
-| Light | `#F8FAFC` | Wordmark on dark, monogram white |
-| Muted dark | `#64748B` | Tagline on light |
-| Muted light | `#CBD5E1` | Tagline on dark |
-| Monogram tones | `#1D7FFD`, `#0669FC`, `#0261F8` | The three facets of the colour B, sampled from `monogram color.png` |
+### Logo colours (logo artwork only)
 
-Website UI colours remain Brand Accent `#3B82F6` and Action Blue `#2563EB` (see `docs/DESIGN_SYSTEM.md`). The monogram tones belong to the logo artwork only.
+| Role | Hex |
+|---|---|
+| Logo-mark blue: light facet (stem, top bar, upper bowl) | `#1D7FFD` |
+| Logo-mark blue: mid facet (chevron, lower bowl) | `#0669FC` |
+| Logo-mark blue: dark facet (bottom bar) | `#0261F8` |
+| Navy: wordmark on light, monogram black, favicon tile | `#0B1320` |
+| Light: wordmark on dark, monogram white | `#F8FAFC` |
+| Tagline on light backgrounds | `#64748B` |
+| Tagline on dark backgrounds | `#CBD5E1` |
+
+The three logo-mark blues are sampled directly from the approved `monogram color.png`. Never recolour the logo mark to the UI blues.
+
+### UI accent colours (website interface only)
+
+| Role | Hex |
+|---|---|
+| Brand accent | `#3B82F6` |
+| Action blue: primary buttons, actionable blue text on light backgrounds | `#2563EB` |
+
+The two sets are intentionally separate. The logo keeps its approved artwork blues, and the website UI uses `#3B82F6` / `#2563EB` as defined in `docs/DESIGN_SYSTEM.md`.
 
 ## Notes
 
