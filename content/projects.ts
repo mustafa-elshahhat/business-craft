@@ -7,7 +7,12 @@ import soulmateDesktop from "@/assets/projects/soulmate-gift-store-desktop.jpg";
 import soulmateBuilder from "@/assets/projects/soulmate-gift-store-builder.jpg";
 import dermivaDesktop from "@/assets/projects/dermiva-skincare-desktop.jpg";
 import dermivaBestsellers from "@/assets/projects/dermiva-skincare-bestsellers.jpg";
-import drMirrorHero from "@/assets/projects/dr-mirror-hero.jpg";
+import soulmateHero from "@/assets/projects/soulmate-gift-store-hero.jpg";
+import soulmateMobile from "@/assets/projects/soulmate-gift-store-mobile.jpg";
+import dermivaMobile from "@/assets/projects/dermiva-skincare-mobile.jpg";
+import drMirrorDesktop from "@/assets/projects/dr-mirror-desktop.jpg";
+import drMirrorMobile from "@/assets/projects/dr-mirror-mobile.jpg";
+import saadDesktop from "@/assets/projects/saad-logistic-desktop.jpg";
 
 /**
  * Portfolio projects (docs/CONTENT_AND_PROJECTS.md).
@@ -33,8 +38,10 @@ export type Project = {
   summary: string | null;
   liveUrl: string | null;
   media?: {
-    /** Desktop home page (16:10), or a page crop where noted. */
+    /** Desktop home page (16:10, or as noted). */
     primary: ProjectImage;
+    /** 6:5 crop of the desktop home page used for the homepage hero. */
+    cover?: ProjectImage;
     /** Cropped interface detail from the same site. */
     detail?: ProjectImage;
     /** Mobile home page, portrait. */
@@ -52,6 +59,8 @@ export const projects: readonly Project[] = [
     liveUrl: "https://soulmate-accessories-store.vercel.app/",
     media: {
       primary: { src: soulmateDesktop, alt: "Soulmate Gift Store home page: “Build a gift for one person” with a gift box hero and shop categories" },
+      cover: { src: soulmateHero, alt: "Soulmate Gift Store home page: “Build a gift for one person”, a personalised gift box and shop categories" },
+      mobile: { src: soulmateMobile, alt: "Soulmate Gift Store home page on a phone" },
       detail: { src: soulmateBuilder, alt: "Soulmate Gift Store “Build your own box” section with couple’s, men’s and women’s boxes" },
     },
     featured: true,
@@ -65,6 +74,7 @@ export const projects: readonly Project[] = [
     media: {
       primary: { src: dermivaDesktop, alt: "Dermiva Skincare home page with face, hair, body and lip care categories" },
       detail: { src: dermivaBestsellers, alt: "Dermiva Skincare best sellers row with product cards and add-to-cart buttons" },
+      mobile: { src: dermivaMobile, alt: "Dermiva Skincare home page on a phone, with search, categories and best sellers" },
     },
     featured: true,
   },
@@ -88,12 +98,23 @@ export const projects: readonly Project[] = [
     summary: "Online store for medical scrubs and uniforms, in multiple sizes and colours, with delivery across Egypt.",
     liveUrl: "https://dr-mirror.vercel.app/",
     media: {
-      /** Portrait crop of the right-hand (Arabic, RTL) half of the desktop home page. */
-      primary: { src: drMirrorHero, alt: "Dr Mirror home page in Arabic: headline, shop buttons and category navigation for medical scrubs" },
+      primary: { src: drMirrorDesktop, alt: "Dr Mirror home page in Arabic: medical scrubs photo, headline, shop buttons and category navigation" },
+      mobile: { src: drMirrorMobile, alt: "Dr Mirror home page in Arabic on a phone" },
     },
     featured: true,
   },
-  { slug: "saad-logistic", name: "Saad Logistic", category: "Websites", summary: null, liveUrl: "https://www.saadlogistic.com/", featured: false },
+  {
+    slug: "saad-logistic",
+    name: "Saad Logistic",
+    category: "Websites",
+    summary: null,
+    liveUrl: "https://www.saadlogistic.com/",
+    media: {
+      /** Desktop home page, cropped above the floating chat launcher. */
+      primary: { src: saadDesktop, alt: "Saad Logistic home page in Arabic: shipping and logistics hero with booking buttons" },
+    },
+    featured: false,
+  },
   { slug: "slc-logistics", name: "SLC Logistics", category: null, summary: null, liveUrl: null, featured: false },
   { slug: "auto-parts-pos", name: "Auto Parts POS", category: "Systems", summary: null, liveUrl: null, featured: false },
   { slug: "e-library-web-app", name: "E-Library Web App", category: "Systems", summary: null, liveUrl: null, featured: false },
@@ -106,6 +127,12 @@ export type FeaturedProject = Project & { summary: string; media: NonNullable<Pr
 export const featuredProjects = projects.filter(
   (project): project is FeaturedProject => project.featured && project.summary !== null && project.media !== undefined,
 );
+
+export function getProject(slug: string): Project {
+  const project = projects.find((item) => item.slug === slug);
+  if (!project) throw new Error(`Project not found: ${slug}`);
+  return project;
+}
 
 export function getFeaturedProject(slug: string): FeaturedProject {
   const project = featuredProjects.find((item) => item.slug === slug);
