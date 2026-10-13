@@ -1,9 +1,10 @@
 "use server";
 
 import { limits, serviceOptions, type EnquiryField, type EnquiryState } from "@/content/enquiry";
-import { contactWebhook } from "@/lib/contact";
+import { contactDelivery } from "@/lib/contact";
 
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const SUBJECT = "Business Craft — New Project Enquiry";
 
 function text(formData: FormData, key: string, max: number) {
   const value = formData.get(key);
@@ -12,11 +13,12 @@ function text(formData: FormData, key: string, max: number) {
 
 /**
  * Validates the enquiry on the server and forwards it to CONTACT_WEBHOOK_URL.
- * Success is reported only after the endpoint answers with a 2xx status.
+ * Success is reported only after the endpoint answers with a 2xx status (and,
+ * for Web3Forms, confirms `success: true` in its JSON reply).
  */
 export async function sendEnquiry(_previous: EnquiryState, formData: FormData): Promise<EnquiryState> {
-  const webhook = contactWebhook();
-  if (!webhook) return { status: "unavailable" };
+  const delivery = contactDelivery();
+  if (!delivery) return { status: "unavailable" };
 
   // Spam guards: a hidden field people never fill, and a minimum fill time.
   // Bots are answered as if sent, so they learn nothing.
@@ -43,15 +45,30 @@ export async function sendEnquiry(_previous: EnquiryState, formData: FormData): 
   if (values.message.length < 10) errors.message = "Please tell us a little about the project (at least 10 characters).";
   if (Object.keys(errors).length > 0) return { status: "invalid", errors, values };
 
+  // Optional field: forwarded only when the form provides it.
+  const budget = text(formData, "budget", 80);
+
   try {
-    const response = await fetch(webhook, {
+    const response = await fetch(delivery.url, {
       method: "POST",
       headers: { "Content-Type": "application/json", Accept: "application/json" },
-      body: JSON.stringify({ ...values, source: "business-craft-website", submittedAt: new Date().toISOString() }),
+      body: JSON.stringify({
+        ...(delivery.accessKey ? { access_key: delivery.accessKey } : {}),
+        subject: SUBJECT,
+        from_name: "Business Craft website",
+        ...values,
+        ...(budget ? { budget } : {}),
+        source: "business-craft-website",
+        submittedAt: new Date().toISOString(),
+      }),
       signal: AbortSignal.timeout(10000),
       cache: "no-store",
     });
     if (!response.ok) return { status: "failed", values };
+    if (delivery.accessKey) {
+      const result: unknown = await response.json().catch(() => null);
+      if ((result as { success?: unknown } | null)?.success !== true) return { status: "failed", values };
+    }
   } catch {
     return { status: "failed", values };
   }

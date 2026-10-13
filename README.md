@@ -25,6 +25,7 @@ All business values come from environment variables, documented in [`.env.exampl
 | `SITE_URL` | Production origin. Enables canonical URLs, absolute Open Graph URLs, structured data, the sitemap and `robots: allow`. Without it the site is kept out of search. |
 | `CONTACT_EMAIL`, `CONTACT_PHONE`, `CONTACT_WHATSAPP` | Direct contact channels (contact page, closing sections, footer). |
 | `CONTACT_WEBHOOK_URL` | Server-only HTTPS endpoint that receives enquiries as a JSON POST. Without it the form is shown as not connected. |
+| `WEB3FORMS_ACCESS_KEY` | Server-only. Required when `CONTACT_WEBHOOK_URL` is `https://api.web3forms.com/submit`; without it the form is shown as not connected. |
 | `SOCIAL_*_URL` | Footer social links. |
 
 Pages are prerendered, so these values are read at build time. Redeploy after changing them.
@@ -34,10 +35,10 @@ Pages are prerendered, so these values are read at build time. Redeploy after ch
 `app/contact/actions.ts` validates every field on the server, drops obvious spam (a hidden honeypot field and a minimum fill time), and POSTs this JSON to `CONTACT_WEBHOOK_URL`:
 
 ```json
-{ "name": "", "company": "", "email": "", "phone": "", "service": "", "message": "", "source": "business-craft-website", "submittedAt": "ISO date" }
+{ "subject": "Business Craft — New Project Enquiry", "from_name": "Business Craft website", "name": "", "company": "", "email": "", "phone": "", "service": "", "message": "", "source": "business-craft-website", "submittedAt": "ISO date" }
 ```
 
-Success is shown only after the endpoint answers with a 2xx status. Any form service or automation tool that accepts a JSON webhook (and forwards it to email or a CRM) works.
+For Web3Forms, `access_key` (from `WEB3FORMS_ACCESS_KEY`) is added to the body on the server; a `budget` field is included only if the form sends one. Success is shown only after the endpoint answers with a 2xx status (for Web3Forms, also `"success": true`). Any form service or automation tool that accepts a JSON webhook (and forwards it to email or a CRM) works.
 
 ## Deployment
 

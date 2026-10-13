@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ContactForm } from "@/components/contact/contact-form";
 import { PageHero } from "@/components/sections/page-hero";
 import { Container } from "@/components/ui/container";
-import { contactWebhook } from "@/lib/contact";
+import { contactDelivery } from "@/lib/contact";
 import { pageMetadata } from "@/lib/metadata";
 import { siteConfig } from "@/lib/site";
 
@@ -92,7 +92,7 @@ export default function ContactPage() {
               </h2>
               <p className="mt-2 text-[0.9375rem] text-muted">All fields are required unless marked optional.</p>
               <div className="mt-8">
-                <ContactForm enabled={contactWebhook() !== null} fallback={fallback} />
+                <ContactForm enabled={contactDelivery() !== null} fallback={fallback} />
               </div>
             </div>
           </div>
