@@ -1,5 +1,4 @@
-import { Section } from "@/components/ui/section";
-import { SectionHeading } from "@/components/ui/section-heading";
+import { Container } from "@/components/ui/container";
 import { testimonials } from "@/content/testimonials";
 
 /**
@@ -10,23 +9,28 @@ export function TestimonialsSection() {
   if (testimonials.length === 0) return null;
 
   return (
-    <Section tone="white" aria-labelledby="testimonials-title" className="border-t border-line">
-      <SectionHeading id="testimonials-title" eyebrow="Testimonials" title="What Our Clients Say" />
-      <ul className="mt-12 grid gap-5 md:grid-cols-2 lg:mt-16 lg:grid-cols-3">
-        {testimonials.map((testimonial) => (
-          <li key={`${testimonial.name}-${testimonial.attribution}`}>
-            <figure className="flex h-full flex-col rounded-card border border-line bg-light p-7">
-              <blockquote className="flex-1 text-[1.0625rem] leading-relaxed text-navy">
-                <p>“{testimonial.quote}”</p>
-              </blockquote>
-              <figcaption className="mt-6 text-[0.9375rem]">
-                <span className="font-semibold text-navy">{testimonial.name}</span>
-                <span className="block text-muted">{testimonial.attribution}</span>
-              </figcaption>
-            </figure>
-          </li>
-        ))}
-      </ul>
-    </Section>
+    <section aria-labelledby="testimonials-title" className="bg-white py-24 text-navy lg:py-36">
+      <Container>
+        <p className="text-eyebrow uppercase text-action">Clients</p>
+        <h2 id="testimonials-title" className="mt-5 text-h2">
+          What Our Clients Say
+        </h2>
+        <ul className="mt-14 border-b border-line-strong">
+          {testimonials.map((testimonial) => (
+            <li key={`${testimonial.name}-${testimonial.attribution}`} className="border-t border-line-strong py-12">
+              <figure className="grid gap-6 lg:grid-cols-12 lg:gap-x-10">
+                <blockquote className="text-[clamp(1.375rem,1.1rem+1vw,2rem)] leading-snug font-medium tracking-[-0.02em] lg:col-span-8">
+                  <p>“{testimonial.quote}”</p>
+                </blockquote>
+                <figcaption className="text-[0.9375rem] lg:col-span-3 lg:col-start-10">
+                  <span className="font-semibold">{testimonial.name}</span>
+                  <span className="block text-muted">{testimonial.attribution}</span>
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
   );
 }

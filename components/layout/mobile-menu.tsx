@@ -78,7 +78,7 @@ export function MobileMenu() {
       <div
         id={panelId}
         hidden={!open}
-        className="fixed inset-x-0 top-[4.25rem] bottom-0 z-40 overflow-y-auto overscroll-contain border-t border-line-dark bg-navy md:top-20"
+        className="fixed inset-x-0 top-18 bottom-0 z-40 overflow-y-auto overscroll-contain border-t border-line-dark bg-navy md:top-20"
       >
         <nav aria-label="Main" className="mx-auto flex min-h-full max-w-[86rem] flex-col px-5 pt-6 pb-10 sm:px-6 md:px-8">
           <ul className="divide-y divide-line-dark border-b border-line-dark">

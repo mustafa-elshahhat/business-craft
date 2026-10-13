@@ -13,16 +13,15 @@ import { NavLinks } from "./nav-links";
 export function Header() {
   return (
     <header className="relative z-50 bg-navy text-white">
-      <Container className="flex h-17 items-center justify-between gap-6 md:h-20">
-        <Logo surface="dark" />
+      <Container className="flex h-18 items-center justify-between gap-6 md:h-20">
+        <Logo surface="dark" className="h-8 md:h-9" />
 
-        <nav aria-label="Main" className="hidden lg:block">
-          <NavLinks />
-        </nav>
-
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-6 xl:gap-10">
+          <nav aria-label="Main" className="hidden lg:block">
+            <NavLinks />
+          </nav>
           <div className="hidden sm:block">
-            <ButtonLink href={primaryCta.href} arrow className="min-h-11 px-5 text-sm">
+            <ButtonLink href={primaryCta.href} variant="quiet">
               {primaryCta.label}
             </ButtonLink>
           </div>

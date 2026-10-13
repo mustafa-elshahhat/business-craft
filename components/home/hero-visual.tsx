@@ -1,63 +1,52 @@
-import Image, { type StaticImageData } from "next/image";
+import Image from "next/image";
 
-type HeroVisualProps = {
-  name: string;
-  liveUrl: string | null;
-  desktop: StaticImageData;
-  mobile?: StaticImageData;
-};
+import type { FeaturedProject } from "@/content/projects";
 
 /**
- * Browser + phone composition built from real screenshots of a live
- * Business Craft project. Swap the project to change the showcase.
+ * Hero interface composition built from real screenshots of a live project:
+ * the desktop page runs to the viewport edge, the mobile page overlaps its
+ * lower-left corner. No device chrome, no fake UI.
  */
-export function HeroVisual({ name, liveUrl, desktop, mobile }: HeroVisualProps) {
-  const host = liveUrl ? new URL(liveUrl).host.replace(/^www\./, "") : null;
+export function HeroVisual({ project }: { project: FeaturedProject }) {
+  const { primary, mobile } = project.media;
 
   return (
     <figure className="relative">
-      <div className="relative pl-[16%]">
-        {/* Browser window */}
-        <div className="overflow-hidden rounded-card border border-white/12 bg-charcoal shadow-[0_40px_80px_-40px_rgb(0_0_0/0.6)]">
-          <div className="flex h-8 items-center gap-3 border-b border-white/8 px-4" aria-hidden="true">
-            <span className="flex gap-1.5">
-              <span className="size-2 rounded-full bg-white/20" />
-              <span className="size-2 rounded-full bg-white/20" />
-              <span className="size-2 rounded-full bg-white/20" />
-            </span>
-            {host ? (
-              <span className="mx-auto max-w-[60%] truncate rounded-md bg-white/6 px-3 py-0.5 text-[0.6875rem] text-white/55">
-                {host}
-              </span>
-            ) : null}
-          </div>
+      <div className="relative bleed-right pl-[22%] lg:pl-0">
+        <div className="relative aspect-[16/10] overflow-hidden rounded-l-[4px] bg-charcoal outline outline-1 -outline-offset-1 outline-white/10">
           <Image
-            src={desktop}
-            alt={`${name} online store, desktop home page`}
-            sizes="(min-width: 1376px) 560px, (min-width: 1024px) 42vw, (min-width: 768px) 560px, 80vw"
+            src={primary.src}
+            alt={primary.alt}
+            fill
+            sizes="(min-width: 1024px) 66vw, 85vw"
             loading="eager"
             fetchPriority="high"
             placeholder="blur"
-            className="block h-auto w-full"
+            className="object-cover object-left-top"
           />
         </div>
 
-        {/* Phone */}
         {mobile ? (
-          <div className="absolute bottom-[-10%] left-0 w-[24%] min-w-[84px] overflow-hidden rounded-[18%/10%] border-[5px] border-charcoal bg-charcoal shadow-[0_30px_60px_-30px_rgb(0_0_0/0.7)] sm:border-[6px]">
-            <Image
-              src={mobile}
-              alt={`${name} online store on mobile`}
-              sizes="(min-width: 768px) 150px, 24vw"
-              loading="eager"
-              placeholder="blur"
-              className="block aspect-[9/16] w-full rounded-[15%/8%] object-cover object-top"
-            />
+          <div className="absolute top-[12%] left-0 w-[38%] sm:w-[30%] lg:top-auto lg:bottom-[-16%] lg:-left-[11%] lg:w-[21%]">
+            <div className="relative aspect-[9/19] overflow-hidden rounded-[10px] bg-charcoal outline outline-1 -outline-offset-1 outline-white/15 ring-[5px] ring-navy sm:rounded-[14px] sm:ring-[7px]">
+              <Image
+                src={mobile.src}
+                alt={mobile.alt}
+                fill
+                sizes="(min-width: 1024px) 15vw, (min-width: 640px) 30vw, 38vw"
+                loading="eager"
+                placeholder="blur"
+                className="object-cover object-top"
+              />
+            </div>
           </div>
         ) : null}
       </div>
-      <figcaption className="mt-[13%] pl-[16%] text-sm text-white/60">
-        {name} — live online store
+
+      <figcaption className="mt-[calc(37%+1.5rem)] flex items-baseline gap-3 text-sm text-white/60 sm:mt-[calc(20%+1.5rem)] lg:mt-6 lg:pl-[12%]">
+        <span className="font-medium text-white">{project.name}</span>
+        <span aria-hidden="true" className="h-px w-6 translate-y-[-0.25em] bg-white/30" />
+        <span>Live online store</span>
       </figcaption>
     </figure>
   );

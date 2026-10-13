@@ -56,7 +56,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <Header />
-        <main id="main-content" tabIndex={-1} className="flex-1 outline-none">
+        <main id="main-content" tabIndex={-1} className="flex-1 overflow-x-clip outline-none">
           {children}
         </main>
         <Footer />

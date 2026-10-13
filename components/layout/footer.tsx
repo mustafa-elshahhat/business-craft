@@ -21,8 +21,8 @@ const linkClass = "inline-flex min-h-11 items-center text-[0.9375rem] text-white
 function FooterColumn({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
-      <h2 className="text-sm font-semibold text-white">{title}</h2>
-      <div className="mt-3">{children}</div>
+      <h2 className="text-eyebrow uppercase text-white/55">{title}</h2>
+      <div className="mt-4">{children}</div>
     </div>
   );
 }
@@ -34,17 +34,14 @@ export function Footer() {
   const { email } = siteConfig.contact;
 
   return (
-    <footer id="site-footer" className="border-t border-line-dark bg-navy text-white">
-      <Container className="grid gap-12 py-16 md:grid-cols-2 md:py-20 lg:grid-cols-12 lg:gap-8">
-        <div className="lg:col-span-5">
+    <footer id="site-footer" className="bg-navy text-white">
+      <Container className="grid gap-14 pt-20 pb-16 md:grid-cols-2 lg:grid-cols-12 lg:gap-x-10 lg:pt-24">
+        <div className="md:col-span-2 lg:col-span-4">
           <Logo surface="dark" className="h-10" />
-          <p className="mt-5 text-eyebrow uppercase text-white/60">{siteConfig.descriptor}</p>
-          <p className="mt-4 max-w-sm text-[0.9375rem] leading-relaxed text-white/70">
-            Websites, e-commerce, business systems and mobile apps for businesses that want to grow.
-          </p>
+          <p className="mt-6 max-w-[18rem] text-[0.9375rem] leading-relaxed text-white/60">{siteConfig.descriptor}</p>
         </div>
 
-        <div className="grid grid-cols-2 gap-8 md:col-span-1 lg:col-span-4">
+        <div className="grid grid-cols-2 gap-8 md:col-span-1 lg:col-span-4 lg:col-start-6">
           <FooterColumn title="Quick Links">
             <ul>
               {footerNav.map((item) => (
@@ -69,10 +66,10 @@ export function Footer() {
           </FooterColumn>
         </div>
 
-        <div className="md:col-span-2 lg:col-span-3">
+        <div className="md:col-span-1 lg:col-span-3 lg:col-start-10">
           <FooterColumn title="Connect">
             <p className="text-[0.9375rem] leading-relaxed text-white/70">Let’s talk about your next project.</p>
-            <TextLink href={primaryCta.href} tone="dark" className="mt-3">
+            <TextLink href={primaryCta.href} tone="dark" className="mt-2">
               {primaryCta.label}
             </TextLink>
             {email ? (
@@ -98,13 +95,13 @@ export function Footer() {
         </div>
       </Container>
 
-      <div className="border-t border-line-dark">
-        <Container className="py-6 text-sm text-white/60">
+      <Container>
+        <div className="border-t border-line-dark py-7 text-sm text-white/55">
           <p>
             ©&nbsp;<CopyrightYear /> <span translate="no">{siteConfig.name}</span>. All rights reserved.
           </p>
-        </Container>
-      </div>
+        </div>
+      </Container>
     </footer>
   );
 }
