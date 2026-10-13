@@ -61,11 +61,9 @@ export function Hero() {
               <li key={service.slug} className={`border-line-dark ${capabilityCell[index]} ${capabilityCellLg[index]}`}>
                 <Link
                   href={serviceHref(service.slug)}
-                  className="group flex min-h-20 items-baseline gap-4 py-7 lg:min-h-24 lg:py-9"
+                  className="group flex min-h-20 items-center gap-3 py-7 lg:min-h-24 lg:py-9"
                 >
-                  <span className="text-xs font-medium tabular-nums text-white/50">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
+                  <span aria-hidden="true" className="size-1 rounded-full bg-accent" />
                   <span className="relative text-base font-medium tracking-[-0.01em] text-white/85 transition-colors duration-300 group-hover:text-white sm:text-lg after:absolute after:inset-x-0 after:-bottom-1 after:h-px after:origin-left after:scale-x-0 after:bg-accent after:transition-transform after:duration-300 group-hover:after:scale-x-100">
                     {service.label}
                   </span>

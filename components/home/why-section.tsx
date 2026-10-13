@@ -20,27 +20,37 @@ const principles = [
   },
 ] as const;
 
-/** Editorial statement on the left, principles divided by rules on the right. */
+/**
+ * Full-width statement, then one horizontal ruled row of principles.
+ * Deliberately not the left/right split used by Process.
+ */
 export function WhySection() {
   return (
     <section aria-labelledby="why-title" className="border-t border-line bg-light py-24 text-navy md:py-28 lg:py-40">
-      <Container className="grid gap-16 lg:grid-cols-12 lg:gap-x-10">
-        <div className="lg:col-span-6">
-          <p className="text-eyebrow uppercase text-action">Why Business Craft</p>
-          <h2 id="why-title" className="mt-5 text-h2">
+      <Container>
+        <p className="text-eyebrow uppercase text-action">Why Business Craft</p>
+        <div className="mt-6 grid gap-8 lg:grid-cols-12 lg:items-end lg:gap-x-10">
+          <h2 id="why-title" className="text-statement lg:col-span-7">
             More Than Just Development
           </h2>
-          <p className="mt-8 max-w-[34rem] text-[clamp(1.25rem,1.05rem+0.7vw,1.625rem)] leading-[1.45] font-medium tracking-[-0.015em] text-navy/85">
+          <p className="max-w-[32rem] text-[clamp(1.125rem,1rem+0.45vw,1.375rem)] leading-[1.5] font-medium tracking-[-0.012em] text-navy/80 lg:col-span-4 lg:col-start-9 lg:pb-2">
             We don’t just build websites or apps. We help businesses turn their ideas into digital products that create
             real value for customers and teams.
           </p>
         </div>
 
-        <ul className="border-b border-line-strong lg:col-span-5 lg:col-start-8 lg:self-end">
-          {principles.map((principle) => (
-            <li key={principle.title} className="grid gap-2 border-t border-line-strong py-7 sm:grid-cols-[12rem_1fr] sm:gap-8">
+        <ul className="mt-16 grid border-y border-line-strong sm:grid-cols-2 lg:mt-24 lg:grid-cols-4">
+          {principles.map((principle, index) => (
+            <li
+              key={principle.title}
+              className={`py-8 sm:pr-8 lg:py-10 ${index > 0 ? "border-t border-line-strong" : ""} ${
+                index === 1 ? "sm:border-t-0 sm:border-l sm:pl-8" : ""
+              } ${index === 2 ? "sm:pl-0 lg:border-t-0 lg:border-l lg:pl-8" : ""} ${
+                index === 3 ? "sm:border-l sm:pl-8 lg:border-t-0" : ""
+              }`}
+            >
               <h3 className="text-lg font-semibold tracking-[-0.015em]">{principle.title}</h3>
-              <p className="text-[0.9375rem] leading-relaxed text-muted">{principle.text}</p>
+              <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">{principle.text}</p>
             </li>
           ))}
         </ul>

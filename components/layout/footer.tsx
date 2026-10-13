@@ -16,7 +16,7 @@ const socialLabels: Record<SocialPlatform, string> = {
   x: "X",
 };
 
-const linkClass = "inline-flex min-h-11 items-center text-[0.9375rem] text-white/70 transition-colors hover:text-white";
+const linkClass = "inline-flex min-h-11 min-w-11 items-center text-[0.9375rem] text-white/70 transition-colors hover:text-white";
 
 function FooterColumn({ title, children }: { title: string; children: ReactNode }) {
   return (

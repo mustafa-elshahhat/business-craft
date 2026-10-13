@@ -64,27 +64,36 @@ function FeatureShowcase({ project, index, align }: { project: FeaturedProject; 
     <article className={`group relative grid gap-x-10 lg:grid-cols-12 ${articleFocus}`}>
       {/* Primary: runs to the viewport edge on its side */}
       <div
-        className={`reveal lg:row-start-1 ${
+        className={`reveal lg:row-start-1 lg:self-start ${
           start ? "bleed-left lg:col-span-9 lg:col-start-1" : "bleed-right lg:col-span-9 lg:col-start-4"
         }`}
       >
-        <div className={`${mediaFrame} aspect-[16/10] ${start ? "rounded-r-[4px]" : "rounded-l-[4px]"}`}>
-          <Image src={primary.src} alt={primary.alt} fill sizes="(min-width: 1024px) 78vw, 100vw" className={mediaImage} />
+        {/* Mobile: tall crop on the client's headline. sm+: crop ends on the site's hero band. */}
+        <div
+          className={`${mediaFrame} aspect-[4/5] sm:aspect-[21/10] ${start ? "rounded-r-[4px]" : "rounded-l-[4px]"}`}
+        >
+          <Image
+            src={primary.src}
+            alt={primary.alt}
+            fill
+            sizes="(min-width: 1024px) 78vw, (min-width: 640px) 100vw, 220vw"
+            className={`${mediaImage} object-left-top`}
+          />
         </div>
       </div>
 
       {/* Detail: overlaps the primary's inner bottom corner */}
       {detail ? (
         <div
-          className={`reveal relative z-10 -mt-[14%] w-[82%] lg:row-start-1 lg:mt-0 lg:w-auto lg:translate-y-[46%] lg:self-end ${
+          className={`reveal relative z-10 -mt-[14%] hidden w-[78%] sm:block lg:row-start-1 lg:mt-0 lg:w-auto lg:translate-y-[46%] lg:self-end ${
             start ? "ml-auto lg:col-span-4 lg:col-start-6" : "mr-auto lg:col-span-5 lg:col-start-1"
           }`}
         >
-          <div className={`${mediaFrame} rounded-[4px] ring-[8px] ring-white lg:ring-[12px]`}>
+          <div className={`${mediaFrame} rounded-[4px] ring-8 ring-white`}>
             <Image
               src={detail.src}
               alt={detail.alt}
-              sizes="(min-width: 1024px) 40vw, 82vw"
+              sizes="(min-width: 1024px) 34vw, 78vw"
               placeholder="blur"
               className="block h-auto w-full transition-transform duration-700 ease-out-soft group-hover:scale-[1.015]"
             />
@@ -120,7 +129,7 @@ export function FeaturedWork() {
             </h2>
           </div>
           <div className="lg:col-span-3 lg:col-start-10">
-            <p className="text-lead text-white/70">
+            <p className="max-w-[34rem] text-lead text-white/70">
               A selection of online stores we have designed and built for real businesses.
             </p>
             <TextLink href="/work" tone="dark" className="mt-3">
@@ -130,37 +139,37 @@ export function FeaturedWork() {
         </Container>
       </div>
 
-      <div className="bg-white pb-28 lg:pb-40">
+      <div className="flow-root bg-white pb-28 lg:pb-40">
         <Container className="relative -mt-28 space-y-28 md:-mt-32 lg:-mt-48 lg:space-y-44">
           {features.map((feature, i) => (
             <FeatureShowcase key={feature.project.slug} project={feature.project} index={i + 1} align={feature.align} />
           ))}
 
           {/* Unequal pair: a wide product-row crop and a tall page crop */}
-          <div className="grid gap-y-24 pt-8 lg:grid-cols-12 lg:gap-x-10 lg:pt-24">
+          <div className="grid gap-y-24 pt-8 lg:grid-cols-12 lg:gap-x-10 lg:pt-16">
             <article className={`group relative lg:col-span-7 ${articleFocus}`}>
               {zts.media.detail ? (
-                <div className={`reveal ${mediaFrame} rounded-[4px]`}>
+                <div className={`reveal ${mediaFrame} aspect-[4/3] rounded-[4px] lg:aspect-[1600/711]`}>
                   <Image
                     src={zts.media.detail.src}
                     alt={zts.media.detail.alt}
-                    sizes="(min-width: 1024px) 56vw, 100vw"
-                    placeholder="blur"
-                    className="block h-auto w-full transition-transform duration-700 ease-out-soft group-hover:scale-[1.015]"
+                    fill
+                    sizes="(min-width: 1024px) 56vw, 180vw"
+                    className={`${mediaImage} object-left`}
                   />
                 </div>
               ) : null}
               <ProjectMeta project={zts} index={3} className="mt-10" />
             </article>
 
-            <article className={`group relative lg:col-span-4 lg:col-start-9 lg:mt-32 ${articleFocus}`}>
-              <div className={`reveal ${mediaFrame} aspect-[4/5] rounded-[4px]`}>
+            <article className={`group relative lg:col-span-4 lg:col-start-9 lg:mt-24 ${articleFocus}`}>
+              <div className={`reveal ${mediaFrame} rounded-[4px]`}>
                 <Image
                   src={drMirror.media.primary.src}
                   alt={drMirror.media.primary.alt}
-                  fill
                   sizes="(min-width: 1024px) 32vw, 100vw"
-                  className="object-cover object-right-top transition-transform duration-700 ease-out-soft group-hover:scale-[1.015]"
+                  placeholder="blur"
+                  className="block h-auto w-full transition-transform duration-700 ease-out-soft group-hover:scale-[1.015]"
                 />
               </div>
               <ProjectMeta project={drMirror} index={4} className="mt-10" />

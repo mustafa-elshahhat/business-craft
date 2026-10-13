@@ -22,7 +22,7 @@ export function ServicesSection() {
             </h2>
           </div>
           <div className="lg:col-span-4 lg:col-start-9">
-            <p className="text-lead text-muted">
+            <p className="max-w-[34rem] text-lead text-muted">
               Four disciplines, one clear process: from a first website to the systems your team runs on.
             </p>
             <TextLink href="/services" className="mt-3">

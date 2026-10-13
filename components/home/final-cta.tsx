@@ -21,10 +21,12 @@ export function FinalCta() {
             Get a free consultation and let’s discuss your project, your goals and the right way to build it.
           </p>
           <div className="flex flex-wrap items-center gap-x-8 gap-y-4 lg:col-span-6 lg:justify-end">
-            <TextLink href={secondaryCta.href}>{secondaryCta.label}</TextLink>
-            <ButtonLink href={primaryCta.href} arrow className="lg:order-last">
+            <ButtonLink href={primaryCta.href} arrow>
               {primaryCta.label}
             </ButtonLink>
+            <TextLink href={secondaryCta.href}>
+              {secondaryCta.label}
+            </TextLink>
           </div>
         </div>
       </Container>

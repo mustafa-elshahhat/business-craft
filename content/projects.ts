@@ -7,7 +7,7 @@ import soulmateDesktop from "@/assets/projects/soulmate-gift-store-desktop.jpg";
 import soulmateBuilder from "@/assets/projects/soulmate-gift-store-builder.jpg";
 import dermivaDesktop from "@/assets/projects/dermiva-skincare-desktop.jpg";
 import dermivaBestsellers from "@/assets/projects/dermiva-skincare-bestsellers.jpg";
-import drMirrorDesktop from "@/assets/projects/dr-mirror-desktop.jpg";
+import drMirrorHero from "@/assets/projects/dr-mirror-hero.jpg";
 
 /**
  * Portfolio projects (docs/CONTENT_AND_PROJECTS.md).
@@ -33,7 +33,7 @@ export type Project = {
   summary: string | null;
   liveUrl: string | null;
   media?: {
-    /** Desktop home page, 16:10. */
+    /** Desktop home page (16:10), or a page crop where noted. */
     primary: ProjectImage;
     /** Cropped interface detail from the same site. */
     detail?: ProjectImage;
@@ -88,7 +88,8 @@ export const projects: readonly Project[] = [
     summary: "Online store for medical scrubs and uniforms, in multiple sizes and colours, with delivery across Egypt.",
     liveUrl: "https://dr-mirror.vercel.app/",
     media: {
-      primary: { src: drMirrorDesktop, alt: "Dr Mirror home page in Arabic, showing medical scrubs and shop-by-category navigation" },
+      /** Portrait crop of the right-hand (Arabic, RTL) half of the desktop home page. */
+      primary: { src: drMirrorHero, alt: "Dr Mirror home page in Arabic: headline, shop buttons and category navigation for medical scrubs" },
     },
     featured: true,
   },
