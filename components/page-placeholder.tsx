@@ -29,7 +29,7 @@ export function PagePlaceholder({
         <h1 id="page-title" className="mt-4 max-w-[18ch] text-h2 text-balance">
           {title}
         </h1>
-        <div className="mt-5 max-w-[36rem] space-y-4 text-lead text-white/72">
+        <div className="mt-5 max-w-[36rem] space-y-4 text-lead text-white/70">
           {children}
           <p>This page is being prepared.</p>
         </div>

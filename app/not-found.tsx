@@ -13,7 +13,7 @@ export default function NotFound() {
         <h1 id="not-found-title" className="mt-4 text-h2">
           Page not found
         </h1>
-        <p className="mt-5 max-w-[34rem] text-lead text-white/72">
+        <p className="mt-5 max-w-[34rem] text-lead text-white/70">
           The page you are looking for does not exist or has moved.
         </p>
         <ButtonLink href="/" className="mt-9">

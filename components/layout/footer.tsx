@@ -16,13 +16,13 @@ const socialLabels: Record<SocialPlatform, string> = {
   x: "X",
 };
 
-const linkClass = "inline-flex min-h-8 items-center text-[0.9375rem] text-white/70 transition-colors hover:text-white";
+const linkClass = "inline-flex min-h-11 items-center text-[0.9375rem] text-white/70 transition-colors hover:text-white";
 
 function FooterColumn({ title, children }: { title: string; children: ReactNode }) {
   return (
     <div>
       <h2 className="text-sm font-semibold text-white">{title}</h2>
-      <div className="mt-4">{children}</div>
+      <div className="mt-3">{children}</div>
     </div>
   );
 }
@@ -46,7 +46,7 @@ export function Footer() {
 
         <div className="grid grid-cols-2 gap-8 md:col-span-1 lg:col-span-4">
           <FooterColumn title="Quick Links">
-            <ul className="space-y-1">
+            <ul>
               {footerNav.map((item) => (
                 <li key={item.href}>
                   <Link href={item.href} className={linkClass}>
@@ -57,7 +57,7 @@ export function Footer() {
             </ul>
           </FooterColumn>
           <FooterColumn title="Services">
-            <ul className="space-y-1">
+            <ul>
               {services.map((service) => (
                 <li key={service.slug}>
                   <Link href={serviceHref(service.slug)} className={linkClass}>
@@ -99,11 +99,10 @@ export function Footer() {
       </Container>
 
       <div className="border-t border-line-dark">
-        <Container className="flex flex-col gap-2 py-6 text-sm text-white/60 sm:flex-row sm:items-center sm:justify-between">
+        <Container className="py-6 text-sm text-white/60">
           <p>
-            © <CopyrightYear /> <span translate="no">{siteConfig.name}</span>. All rights reserved.
+            ©&nbsp;<CopyrightYear /> <span translate="no">{siteConfig.name}</span>. All rights reserved.
           </p>
-          <p>{siteConfig.descriptor}</p>
         </Container>
       </div>
     </footer>

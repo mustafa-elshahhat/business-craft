@@ -28,7 +28,7 @@ export function ServicesSection() {
         </div>
       </div>
 
-      <ul className="mt-10 grid border-b border-line sm:mt-12 sm:gap-5 sm:border-b-0 sm:grid-cols-2 lg:mt-16 lg:grid-cols-4">
+      <ul className="mt-10 grid border-b border-line sm:mt-12 sm:gap-5 sm:border-b-0 sm:grid-cols-2 lg:mt-16 xl:grid-cols-4">
         {services.map((service) => (
           <li key={service.slug}>
             <ServiceCard

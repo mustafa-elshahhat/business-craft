@@ -14,7 +14,7 @@ type LogoProps = {
 export function Logo({ surface, className = "h-9 md:h-10" }: LogoProps) {
   const asset = brandAssets.compactLogo[surface];
   return (
-    <Link href="/" aria-label="Business Craft home" className="inline-flex shrink-0 rounded-sm">
+    <Link href="/" aria-label="Business Craft home" className="inline-flex min-h-11 shrink-0 items-center rounded-sm">
       <Image
         src={asset.src}
         alt=""

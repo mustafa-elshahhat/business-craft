@@ -28,10 +28,10 @@ export function ProcessSection() {
         {steps.map((step, index) => (
           <li key={step.title}>
             <div className="flex items-center gap-4" aria-hidden="true">
-              <span className="text-sm font-semibold tabular-nums text-action">{String(index + 1).padStart(2, "0")}</span>
+              <span className="text-[2rem] leading-none font-semibold tracking-[-0.02em] tabular-nums text-action">{String(index + 1).padStart(2, "0")}</span>
               <span className="h-px flex-1 bg-line-strong" />
             </div>
-            <h3 className="mt-6 text-h3">
+            <h3 className="mt-5 text-h3">
               <span className="sr-only">Step {index + 1}: </span>
               {step.title}
             </h3>

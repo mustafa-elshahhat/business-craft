@@ -38,7 +38,7 @@ export function TextLink({
   const colour = tone === "dark" ? "text-white hover:text-white/80" : "text-action hover:text-navy";
   return (
     <Link
-      className={`group inline-flex items-center gap-1.5 text-[0.9375rem] font-semibold transition-colors duration-300 ${colour} ${className}`}
+      className={`group inline-flex min-h-11 items-center gap-1.5 text-[0.9375rem] font-semibold transition-colors duration-300 ${colour} ${className}`}
       {...props}
     >
       {children}

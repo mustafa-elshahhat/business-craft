@@ -10,7 +10,7 @@ export function FinalCta() {
         <h2 id="cta-title" className="mt-4 text-h2 text-balance">
           Ready to Grow Your Business?
         </h2>
-        <p className="mx-auto mt-5 max-w-[32rem] text-lead text-white/72">
+        <p className="mx-auto mt-5 max-w-[32rem] text-lead text-white/70">
           Get a free consultation and let’s discuss your project, your goals and the right way to build it.
         </p>
         <div className="mt-9 flex flex-col justify-center gap-3 sm:flex-row">
