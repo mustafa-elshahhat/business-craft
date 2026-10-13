@@ -23,13 +23,13 @@ export function PagePlaceholder({
   action = { label: "Get a Free Consultation", href: "/contact" },
 }: PagePlaceholderProps) {
   return (
-    <section aria-labelledby="page-title" className="bg-navy text-white">
-      <Container className="py-20 md:py-28 lg:py-32">
-        <p className="text-eyebrow uppercase text-accent">{eyebrow}</p>
-        <h1 id="page-title" className="mt-4 max-w-[18ch] text-h2 text-balance">
+    <section aria-labelledby="page-title" data-header="dark" className="bg-navy text-white">
+      <Container className="pt-[calc(var(--header-h)+5rem)] pb-20 md:pt-[calc(var(--header-h)+7rem)] md:pb-28 lg:pb-32">
+        <p className="text-label uppercase text-mist">{eyebrow}</p>
+        <h1 id="page-title" className="mt-5 max-w-[18ch] text-h2 text-balance">
           {title}
         </h1>
-        <div className="mt-5 max-w-[36rem] space-y-4 text-lead text-white/70">
+        <div className="mt-5 max-w-[36rem] space-y-4 text-lead text-mist">
           {children}
           <p>This page is being prepared.</p>
         </div>

@@ -1,64 +1,54 @@
+import Link from "next/link";
+
 import { ButtonLink, TextLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { Facet } from "@/components/ui/facet";
-import { getFeaturedProject } from "@/content/projects";
-import { services } from "@/content/services";
-import { primaryCta, secondaryCta, siteConfig } from "@/lib/site";
+import { getFeaturedProject, getProject, projectHost, projectHref } from "@/content/projects";
+import { primaryCta, secondaryCta } from "@/lib/site";
 
-import { HeroVisual } from "./hero-visual";
+import { LiveWork, type LiveProject } from "./live-work";
 
-const showcase = getFeaturedProject("soulmate-gift-store");
+const live: LiveProject[] = ["zts-fashion", "dermiva-skincare", "soulmate-gift-store"].map((slug) => {
+  const project = getFeaturedProject(slug);
+  return {
+    slug: project.slug,
+    name: project.name,
+    category: project.category ?? "",
+    host: projectHost(project) ?? "",
+    liveUrl: project.liveUrl ?? "",
+    bilingual: project.bilingual ?? false,
+    desktop: project.media.desktop,
+    mobile: project.media.mobile ?? project.media.desktop,
+  };
+});
+
+const proof = ["zts-fashion", "dermiva-skincare", "soulmate-gift-store", "dr-mirror", "saad-logistic"].map(getProject);
 
 /**
- * Editorial hero. The H1 is the composition: its first two lines run the
- * full measure, the last two sit beside the work, which starts under line
- * two and bleeds off the right edge (desktop). Below lg the type comes
- * first and the work follows.
+ * Hero: two-tone headline, one action, and the live-work window cycling
+ * through real captures of shipped stores. The proof line closes the chapter.
  */
 export function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="hero-scale relative bg-navy text-white">
-      <Container className="relative pt-8 pb-20 md:pt-12 lg:pt-10 lg:pb-28">
-        <p className="enter-fade flex items-center gap-3 text-[0.75rem] font-medium tracking-[0.16em] text-white/60 uppercase">
-          <Facet className="size-2" />
-          {siteConfig.descriptor}
-        </p>
-
-        <div className="mt-8 grid lg:mt-10 lg:grid-cols-12 lg:grid-rows-[auto_1fr] lg:gap-x-10">
-          <h1
-            id="hero-title"
-            className="text-[length:var(--hero-fs)] leading-[var(--hero-lh)] font-bold tracking-[-0.045em] text-balance lg:col-span-12 lg:col-start-1 lg:row-start-1 lg:text-wrap"
-          >
-            <span className="enter-line">
-              <span>
-                Websites, <span className="whitespace-nowrap">E-commerce,</span>
-              </span>
+    <section aria-labelledby="hero-title" data-header="dark" className="bg-navy text-white">
+      <Container className="pt-[calc(var(--header-h)+3.5rem)] md:pt-[calc(var(--header-h)+5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
+        <div className="grid gap-y-8 xl:grid-cols-12 xl:items-end xl:gap-x-10">
+          <h1 id="hero-title" className="text-h1 text-balance xl:col-span-8 xl:text-wrap">
+            <span className="enter-line block" style={{ "--i": 0 } as React.CSSProperties}>
+              Websites, <span className="whitespace-nowrap">E-commerce,</span>
             </span>
-            <span className="enter-line">
-              <span>
-                Systems &amp; <span className="whitespace-nowrap">Mobile Apps</span>
-              </span>
+            <span className="enter-line block" style={{ "--i": 1 } as React.CSSProperties}>
+              Systems &amp; Mobile Apps
             </span>
-            <span className="enter-line">
-              <span>
-                That <span className="text-accent">Grow</span>
-              </span>
-            </span>
-            <span className="enter-line">
-              <span className="text-accent">Your Business</span>
+            <span className="enter-line block text-mist" style={{ "--i": 2 } as React.CSSProperties}>
+              That Grow Your Business
             </span>
           </h1>
 
-          {/* Work: starts below the second headline line on desktop */}
-          <div className="order-last mt-14 sm:mt-16 lg:order-none lg:col-span-4 lg:col-start-9 lg:row-span-2 lg:row-start-1 lg:mt-[calc(var(--hero-fs)*var(--hero-lh)*2+2.25rem)] xl:col-span-5 xl:col-start-8">
-            <HeroVisual project={showcase} />
-          </div>
-
-          <div className="enter-fade mt-8 sm:max-w-[34rem] lg:col-span-5 lg:col-start-1 lg:row-start-2 lg:mt-12 xl:col-span-4">
-            <p className="text-[1.0625rem] leading-relaxed text-white/70 md:text-lg">
+          <div className="enter-rise xl:col-span-4 xl:pb-1">
+            <p className="max-w-[26rem] text-[1.0625rem] leading-relaxed text-mist">
               We design and build digital products that help businesses sell more, work smarter and grow faster.
             </p>
-            <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+            <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-2">
               <ButtonLink href={primaryCta.href} arrow>
                 {primaryCta.label}
               </ButtonLink>
@@ -68,24 +58,23 @@ export function Hero() {
             </div>
           </div>
         </div>
-      </Container>
 
-      {/* Capability rail: typography and rules, not buttons */}
-      <Container>
-        <div className="grid grid-cols-2 border-t border-line-dark lg:grid-cols-[minmax(0,1fr)_repeat(4,minmax(0,1.25fr))]">
-          <h2 className="col-span-2 py-5 text-[0.6875rem] font-medium tracking-[0.18em] text-white/55 uppercase lg:col-span-1 lg:py-7">
-            What we build
-          </h2>
-          <ul className="contents">
-            {services.map((service, index) => (
-              <li
-                key={service.slug}
-                className={`flex items-center gap-3 border-t border-line-dark py-5 text-[0.9375rem] font-medium tracking-[-0.01em] text-white/85 md:text-base lg:border-t-0 lg:border-l lg:py-7 lg:pl-6 ${
-                  index % 2 === 1 ? "border-l pl-5" : ""
-                }`}
-              >
-                <Facet className="size-1.5" />
-                {service.label}
+        <div className="enter-window mt-12 md:mt-16 lg:mt-20">
+          <LiveWork projects={live} />
+        </div>
+
+        {/* Live-project proof line */}
+        <div className="mt-12 flex flex-col gap-3 border-t border-line-dark py-6 md:mt-14 lg:flex-row lg:items-center lg:gap-10">
+          <h2 className="shrink-0 text-label text-mist uppercase">Live projects</h2>
+          <ul className="flex flex-wrap items-center gap-x-6 gap-y-1">
+            {proof.map((project) => (
+              <li key={project.slug}>
+                <Link
+                  href={projectHref(project.slug)}
+                  className="inline-flex min-h-11 items-center text-[0.9375rem] text-white/80 transition-colors hover-ease hover:text-white"
+                >
+                  {project.name}
+                </Link>
               </li>
             ))}
           </ul>

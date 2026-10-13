@@ -3,20 +3,15 @@ import type { ComponentProps } from "react";
 import { ArrowRight } from "lucide-react";
 
 const base =
-  "group inline-flex items-center justify-center gap-2 rounded-control tracking-[-0.005em] transition-[background-color,border-color,color,filter,transform] duration-300 ease-out-soft";
-
-const standard = "min-h-12 px-6 text-[0.9375rem] font-semibold";
+  "group inline-flex min-h-11 items-center justify-center gap-2 rounded-control px-5 text-[0.9375rem] font-[540] tracking-[-0.005em] whitespace-nowrap transition-[background-color,border-color,color] hover-ease active:translate-y-px";
 
 const variants = {
   /** Action blue (#2563EB) keeps white text above 4.5:1. */
-  primary: `${standard} bg-action text-white hover:brightness-90 active:translate-y-px`,
-  /** Outline for dark (navy) surfaces. */
-  "secondary-dark": `${standard} border border-white/30 text-white hover:border-white/60 hover:bg-white/5`,
-  /** Outline for light surfaces. */
-  "secondary-light": `${standard} border border-navy text-navy hover:bg-navy hover:text-white`,
-  /** Compact, quiet outline used in the header so it never competes with the H1. */
-  quiet:
-    "min-h-11 border border-white/20 px-4 text-[0.8125rem] font-medium tracking-[0.01em] text-white hover:border-white/55 hover:bg-white/5",
+  primary: "bg-action text-white hover:bg-[#1d4ed8]",
+  /** Hairline outline for dark (navy) surfaces. */
+  "secondary-dark": "text-white shadow-[inset_0_0_0_1px_rgb(248_250_252/0.2)] hover:bg-white/[0.06]",
+  /** Hairline outline for light surfaces. */
+  "secondary-light": "text-navy shadow-[inset_0_0_0_1px_rgb(11_19_32/0.2)] hover:bg-navy/[0.04]",
 } as const;
 
 type ButtonLinkProps = ComponentProps<typeof Link> & {
@@ -31,7 +26,7 @@ export function ButtonLink({ variant = "primary", arrow = false, className = "",
       {arrow ? (
         <ArrowRight
           aria-hidden="true"
-          className="size-4 transition-transform duration-300 ease-out-soft group-hover:translate-x-0.5"
+          className="size-4 transition-transform hover-ease group-hover:translate-x-[3px]"
           strokeWidth={2}
         />
       ) : null}
@@ -40,8 +35,8 @@ export function ButtonLink({ variant = "primary", arrow = false, className = "",
 }
 
 /**
- * Editorial text link: thin underline that strengthens on hover, arrow that
- * nudges forward. Used for secondary actions instead of a second button.
+ * Text link: hairline underline that strengthens on hover and an arrow
+ * that moves 3px. Used for secondary actions instead of a second button.
  */
 export function TextLink({
   tone = "light",
@@ -51,17 +46,17 @@ export function TextLink({
 }: ComponentProps<typeof Link> & { tone?: "light" | "dark" }) {
   const colour =
     tone === "dark"
-      ? "text-white decoration-white/35 hover:decoration-white"
+      ? "text-white decoration-white/30 hover:decoration-white"
       : "text-navy decoration-navy/30 hover:decoration-navy";
   return (
     <Link
-      className={`group inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-semibold underline decoration-1 underline-offset-[6px] transition-[text-decoration-color] duration-300 ${colour} ${className}`}
+      className={`group inline-flex min-h-11 items-center gap-2 text-[0.9375rem] font-[540] underline decoration-1 underline-offset-[6px] transition-[text-decoration-color] hover-ease ${colour} ${className}`}
       {...props}
     >
       {children}
       <ArrowRight
         aria-hidden="true"
-        className="size-4 transition-transform duration-300 ease-out-soft group-hover:translate-x-1"
+        className="size-4 transition-transform hover-ease group-hover:translate-x-[3px]"
         strokeWidth={2}
       />
     </Link>

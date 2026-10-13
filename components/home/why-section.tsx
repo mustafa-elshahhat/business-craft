@@ -20,44 +20,35 @@ const principles = [
   },
 ] as const;
 
-/** One large statement on the left, principles as ruled rows on the right. */
+/** One statement, four principles separated by hairlines. */
 export function WhySection() {
   return (
-    <section aria-labelledby="why-title" className="bg-light text-navy">
-      <Container className="pt-20 pb-28 md:pt-24 lg:pt-28 lg:pb-44">
-        {/* Offset rule: a blue facet leads into the chapter */}
-        <div aria-hidden="true" className="flex items-center">
-          <span className="h-px w-16 bg-action" />
-          <span data-reveal="line" className="h-px flex-1 bg-line-strong" />
+    <section aria-labelledby="why-title" data-header="light" className="bg-white text-navy">
+      <Container className="py-24 md:py-32 lg:py-40">
+        <div className="grid gap-y-6 lg:grid-cols-12 lg:items-end lg:gap-x-10">
+          <h2 id="why-title" data-reveal className="max-w-[14ch] text-h2 lg:col-span-6">
+            More Than Just Development.
+          </h2>
+          <p data-reveal style={{ "--i": 1 } as React.CSSProperties} className="max-w-[34rem] text-lead text-muted lg:col-span-6">
+            We don’t just build websites or apps. We help businesses turn their ideas into digital products that create real
+            value for customers and teams.
+          </p>
         </div>
 
-        <div className="mt-12 grid gap-y-16 lg:mt-16 lg:grid-cols-12 lg:gap-x-10">
-          <div className="lg:col-span-6">
-            <h2
-              id="why-title"
-              className="max-w-[11ch] text-[clamp(2.75rem,1.2rem+5.6vw,6.25rem)] leading-[0.9] font-bold tracking-[-0.052em]"
+        <ul className="mt-16 grid border-t border-line sm:grid-cols-2 lg:mt-24 lg:grid-cols-4">
+          {principles.map((principle, index) => (
+            <li
+              key={principle.title}
+              className={`border-b border-line py-8 sm:pr-8 lg:border-b-0 lg:py-10 ${index % 2 === 1 ? "sm:border-l sm:pl-8" : ""} ${
+                index > 0 ? "lg:border-l lg:pl-8" : ""
+              }`}
             >
-              More Than Just Development
-            </h2>
-            <p className="mt-10 max-w-[30rem] text-[clamp(1.0625rem,1rem+0.3vw,1.25rem)] leading-relaxed text-navy/75">
-              We don’t just build websites or apps. We help businesses turn their ideas into digital products that create
-              real value for customers and teams.
-            </p>
-          </div>
-
-          <ul className="border-b border-line-strong lg:col-span-5 lg:col-start-8 lg:self-end">
-            {principles.map((principle) => (
-              <li key={principle.title} className="grid gap-y-3 border-t border-line-strong py-8 sm:grid-cols-[13rem_1fr] sm:gap-x-8 lg:grid-cols-1 xl:grid-cols-[11rem_1fr] lg:py-9">
-                <h3 className="text-lg leading-snug font-semibold tracking-[-0.02em]">{principle.title}</h3>
-                <p className="text-[0.9375rem] leading-relaxed text-muted">{principle.text}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
+              <h3 className="text-[1.125rem] font-[540] tracking-[-0.01em]">{principle.title}</h3>
+              <p className="mt-3 text-[0.9375rem] leading-relaxed text-muted">{principle.text}</p>
+            </li>
+          ))}
+        </ul>
       </Container>
-
-      {/* Stepped edge into the navy process */}
-      <div aria-hidden="true" className="relative -mb-px step-up bg-navy [--step-x:34%]" />
     </section>
   );
 }

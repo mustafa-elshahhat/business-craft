@@ -1,30 +1,24 @@
 import type { StaticImageData } from "next/image";
 
-import ztsDesktop from "@/assets/projects/zts-fashion-desktop.jpg";
-import ztsMobile from "@/assets/projects/zts-fashion-mobile.jpg";
-import ztsArrivals from "@/assets/projects/zts-fashion-arrivals.jpg";
-import soulmateDesktop from "@/assets/projects/soulmate-gift-store-desktop.jpg";
-import soulmateBuilder from "@/assets/projects/soulmate-gift-store-builder.jpg";
-import dermivaDesktop from "@/assets/projects/dermiva-skincare-desktop.jpg";
-import dermivaBestsellers from "@/assets/projects/dermiva-skincare-bestsellers.jpg";
-import soulmateHero from "@/assets/projects/soulmate-gift-store-hero.jpg";
-import soulmateMobile from "@/assets/projects/soulmate-gift-store-mobile.jpg";
-import dermivaMobile from "@/assets/projects/dermiva-skincare-mobile.jpg";
-import drMirrorDesktop from "@/assets/projects/dr-mirror-desktop.jpg";
-import drMirrorMobile from "@/assets/projects/dr-mirror-mobile.jpg";
-import saadDesktop from "@/assets/projects/saad-logistic-desktop.jpg";
+import ztsHome from "@/assets/projects/zts-fashion-home.jpg";
+import ztsHomeMobile from "@/assets/projects/zts-fashion-home-mobile.jpg";
+import dermivaHome from "@/assets/projects/dermiva-skincare-home.jpg";
+import dermivaHomeMobile from "@/assets/projects/dermiva-skincare-home-mobile.jpg";
+import soulmateHome from "@/assets/projects/soulmate-gift-store-home.jpg";
+import soulmateHomeMobile from "@/assets/projects/soulmate-gift-store-home-mobile.jpg";
+import drMirrorHome from "@/assets/projects/dr-mirror-home.jpg";
+import saadHome from "@/assets/projects/saad-logistic-desktop.jpg";
 
 /**
  * Portfolio projects (docs/CONTENT_AND_PROJECTS.md).
  *
- * Only facts that can be verified are published. Featured descriptions were
- * checked against each live site (October 2026). Screenshots are captures of
- * the live sites at 2x and preserve the real client UI; the only change is
- * that a floating third-party chat launcher was hidden before capture.
+ * Only facts verified on the live sites are published (captured October
+ * 2026, evidence in assets/captures/<project>/CAPTURES.md). Screenshots are
+ * captures of the live sites; the only change is that a floating
+ * third-party chat launcher was hidden before capture where present.
  *
- * Projects without verified details are listed for routing only and are not
- * featured. Never add results, metrics, dates or technology stacks without
- * owner confirmation.
+ * Never add results, metrics, dates or technology stacks without owner
+ * confirmation.
  */
 export type ProjectCategory = "Websites" | "E-commerce" | "Systems" | "Mobile Apps";
 
@@ -37,14 +31,12 @@ export type Project = {
   category: ProjectCategory | null;
   summary: string | null;
   liveUrl: string | null;
+  /** Languages verified live, with genuine right-to-left Arabic layouts. */
+  bilingual?: boolean;
   media?: {
-    /** Desktop home page (16:10, or as noted). */
-    primary: ProjectImage;
-    /** 6:5 crop of the desktop home page used for the homepage hero. */
-    cover?: ProjectImage;
-    /** Cropped interface detail from the same site. */
-    detail?: ProjectImage;
-    /** Mobile home page, portrait. */
+    /** Desktop home page, 16:10. */
+    desktop: ProjectImage;
+    /** Phone home page, portrait. */
     mobile?: ProjectImage;
   };
   featured: boolean;
@@ -52,16 +44,15 @@ export type Project = {
 
 export const projects: readonly Project[] = [
   {
-    slug: "soulmate-gift-store",
-    name: "Soulmate Gift Store",
+    slug: "zts-fashion",
+    name: "ZTS Fashion",
     category: "E-commerce",
-    summary: "Personalised gift store where customers build a gift box piece by piece and add names, a date and a message.",
-    liveUrl: "https://soulmate-accessories-store.vercel.app/",
+    summary: "Online store for a clothing brand of minimalist everyday basics, made in Egypt.",
+    liveUrl: "https://www.ztsbrand.com/en",
+    bilingual: true,
     media: {
-      primary: { src: soulmateDesktop, alt: "Soulmate Gift Store home page: “Build a gift for one person” with a gift box hero and shop categories" },
-      cover: { src: soulmateHero, alt: "Soulmate Gift Store home page: “Build a gift for one person”, a personalised gift box and shop categories" },
-      mobile: { src: soulmateMobile, alt: "Soulmate Gift Store home page on a phone" },
-      detail: { src: soulmateBuilder, alt: "Soulmate Gift Store “Build your own box” section with couple’s, men’s and women’s boxes" },
+      desktop: { src: ztsHome, alt: "ZTS Fashion home page: “Minimal basics, ready to wear”" },
+      mobile: { src: ztsHomeMobile, alt: "ZTS Fashion home page on a phone" },
     },
     featured: true,
   },
@@ -71,23 +62,23 @@ export const projects: readonly Project[] = [
     category: "E-commerce",
     summary: "Online store for face, hair, body and lip care products, organised by category.",
     liveUrl: "https://dermiva-eg.vercel.app/en",
+    bilingual: true,
     media: {
-      primary: { src: dermivaDesktop, alt: "Dermiva Skincare home page with face, hair, body and lip care categories" },
-      detail: { src: dermivaBestsellers, alt: "Dermiva Skincare best sellers row with product cards and add-to-cart buttons" },
-      mobile: { src: dermivaMobile, alt: "Dermiva Skincare home page on a phone, with search, categories and best sellers" },
+      desktop: { src: dermivaHome, alt: "Dermiva Skincare home page: “Face, hair, body and lip care.” with featured products and categories" },
+      mobile: { src: dermivaHomeMobile, alt: "Dermiva Skincare home page on a phone" },
     },
     featured: true,
   },
   {
-    slug: "zts-fashion",
-    name: "ZTS Fashion",
+    slug: "soulmate-gift-store",
+    name: "Soulmate Gift Store",
     category: "E-commerce",
-    summary: "Online store for a clothing brand of minimalist everyday basics, made in Egypt.",
-    liveUrl: "https://www.ztsbrand.com/en",
+    summary: "Personalised gift store where customers build a gift box piece by piece and add names, a date and a message.",
+    liveUrl: "https://soulmate-accessories-store.vercel.app/",
+    bilingual: true,
     media: {
-      primary: { src: ztsDesktop, alt: "ZTS Fashion home page: “Minimal basics, ready to wear”" },
-      detail: { src: ztsArrivals, alt: "ZTS Fashion new arrivals row with product photos, colours and prices" },
-      mobile: { src: ztsMobile, alt: "ZTS Fashion home page on a phone" },
+      desktop: { src: soulmateHome, alt: "Soulmate Gift Store home page: “Build a gift for one person.” with a gift box photo" },
+      mobile: { src: soulmateHomeMobile, alt: "Soulmate Gift Store home page on a phone" },
     },
     featured: true,
   },
@@ -97,9 +88,9 @@ export const projects: readonly Project[] = [
     category: "E-commerce",
     summary: "Online store for medical scrubs and uniforms, in multiple sizes and colours, with delivery across Egypt.",
     liveUrl: "https://dr-mirror.vercel.app/",
+    bilingual: true,
     media: {
-      primary: { src: drMirrorDesktop, alt: "Dr Mirror home page in Arabic: medical scrubs photo, headline, shop buttons and category navigation" },
-      mobile: { src: drMirrorMobile, alt: "Dr Mirror home page in Arabic on a phone" },
+      desktop: { src: drMirrorHome, alt: "Dr Mirror home page in Arabic: medical scrubs photo, headline and shop buttons" },
     },
     featured: true,
   },
@@ -110,15 +101,17 @@ export const projects: readonly Project[] = [
     summary: null,
     liveUrl: "https://www.saadlogistic.com/",
     media: {
-      /** Desktop home page, cropped above the floating chat launcher. */
-      primary: { src: saadDesktop, alt: "Saad Logistic home page in Arabic: shipping and logistics hero with booking buttons" },
+      /** Cropped above the floating chat launcher. */
+      desktop: { src: saadHome, alt: "Saad Logistic home page in Arabic: shipping and logistics hero with booking buttons" },
     },
     featured: false,
   },
+  /** A separate project from Saad Logistic. Not shown on the homepage until a verified visual exists. */
   { slug: "slc-logistics", name: "SLC Logistics", category: null, summary: null, liveUrl: null, featured: false },
   { slug: "auto-parts-pos", name: "Auto Parts POS", category: "Systems", summary: null, liveUrl: null, featured: false },
-  { slug: "e-library-web-app", name: "E-Library Web App", category: "Systems", summary: null, liveUrl: null, featured: false },
   { slug: "lap-service-pos", name: "Lap Service POS", category: "Systems", summary: null, liveUrl: null, featured: false },
+  /** Scope not yet verified: not used as Systems proof. */
+  { slug: "e-library-web-app", name: "E-Library Web App", category: null, summary: null, liveUrl: null, featured: false },
   { slug: "moonwatch", name: "MoonWatch", category: null, summary: null, liveUrl: null, featured: false },
 ];
 
@@ -142,4 +135,9 @@ export function getFeaturedProject(slug: string): FeaturedProject {
 
 export function projectHref(slug: string) {
   return `/work/${slug}`;
+}
+
+/** Display host for a live URL, e.g. "ztsbrand.com". */
+export function projectHost(project: Project) {
+  return project.liveUrl ? new URL(project.liveUrl).hostname.replace(/^www\./, "") : null;
 }

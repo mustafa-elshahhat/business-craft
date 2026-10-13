@@ -5,5 +5,5 @@ import { PagePlaceholder, placeholderMetadata } from "@/components/page-placehol
 export const metadata: Metadata = { title: "Work", ...placeholderMetadata };
 
 export default function WorkPage() {
-  return <PagePlaceholder eyebrow="Our work" title="Real Projects. Real Results." />;
+  return <PagePlaceholder eyebrow="Our work" title="Selected Work." />;
 }

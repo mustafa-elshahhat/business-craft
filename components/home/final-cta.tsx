@@ -1,44 +1,34 @@
 import { ButtonLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
-import { primaryCta } from "@/lib/site";
+import { primaryCta, siteConfig } from "@/lib/site";
 
-/**
- * Closing poster: a massive statement, generous space and one action.
- * The navy steps down into it from Process and back up into the footer,
- * where a single blue facet marks the fold.
- */
+/** Closing chapter on navy: left aligned, one action, email only if configured. */
 export function FinalCta() {
+  const { email } = siteConfig.contact;
+
   return (
-    <section aria-labelledby="cta-title" className="relative bg-white text-navy">
-      <div aria-hidden="true" className="-mt-px step-down bg-navy [--step-x:66%]" />
-
-      <Container className="pt-24 pb-32 md:pt-32 lg:pt-40 lg:pb-48">
-        <h2
-          id="cta-title"
-          className="text-[clamp(3.5rem,0.5rem+12.2vw,12.5rem)] leading-[0.84] font-bold tracking-[-0.06em] lg:mt-14"
-        >
-          Ready to Grow
-          <br />
-          Your Business<span className="text-action">?</span>
-        </h2>
-
-        <div className="mt-14 lg:mt-20 lg:ml-[58.33%]">
-          <p className="max-w-[26rem] text-[1.0625rem] leading-relaxed text-muted">
-            Get a free consultation and let’s discuss your project, your goals and the right way to build it.
-          </p>
-          <div className="mt-8">
-            <ButtonLink href={primaryCta.href} arrow className="whitespace-nowrap">
+    <section aria-labelledby="cta-title" data-header="dark" className="bg-navy text-white">
+      <Container className="pt-8 pb-24 md:pb-32 lg:pb-40">
+        <div className="border-t border-line-dark pt-24 md:pt-32 lg:pt-40">
+          <h2 id="cta-title" data-reveal className="text-h1 text-balance">
+            <span className="block">Ready to Grow Your Business?</span>
+            <span className="block text-mist">Let’s discuss your project.</span>
+          </h2>
+          <div data-reveal style={{ "--i": 1 } as React.CSSProperties} className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-4">
+            <ButtonLink href={primaryCta.href} arrow>
               {primaryCta.label}
             </ButtonLink>
+            {email ? (
+              <a
+                href={`mailto:${email}`}
+                className="inline-flex min-h-11 items-center text-[0.9375rem] text-mist underline decoration-white/20 underline-offset-[6px] transition-colors hover-ease hover:text-white"
+              >
+                {email}
+              </a>
+            ) : null}
           </div>
         </div>
       </Container>
-
-      {/* Step up into the footer, with one blue facet on the fold */}
-      <div aria-hidden="true" className="relative -mb-px">
-        <div className="step-up bg-navy [--step-x:42%]" />
-        <div className="step-facet absolute inset-0 bg-action [--step-x:42%]" />
-      </div>
     </section>
   );
 }

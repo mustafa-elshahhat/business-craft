@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * Business Craft design tokens (docs/DESIGN_SYSTEM.md).
+ * Business Craft design tokens (docs/DESIGN_SYSTEM.md), "Live Work" direction.
  * The default Tailwind palette is removed so only approved colours exist.
  * Logo-mark blues live inside the logo SVGs and are not UI tokens.
  */
@@ -17,194 +17,118 @@
   --color-muted: #64748b;
   --color-subtle: #94a3b8;
   --color-light: #f8fafc;
-  --color-line: rgb(11 19 32 / 0.12);
-  --color-line-strong: rgb(11 19 32 / 0.18);
-  --color-line-dark: rgb(248 250 252 / 0.14);
+  /* Hairlines: light chapters / dark chapters. */
+  --color-line: rgb(11 19 32 / 0.1);
+  --color-line-strong: rgb(11 19 32 / 0.16);
+  --color-line-dark: rgb(248 250 252 / 0.1);
+  --color-line-dark-strong: rgb(248 250 252 / 0.16);
+  /* Muted text on navy (passes 4.5:1 on #0B1320). */
+  --color-mist: #8b95a7;
 
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
 
-  /* Hero H1: 44px mobile, 60px tablet, 52→72px desktop (see .hero-title). */
-  --text-display: clamp(2.75rem, 1.6rem + 4.6vw, 3.75rem);
-  --text-display--line-height: 1.02;
-  --text-display--letter-spacing: -0.036em;
-  --text-display--font-weight: 700;
+  /* Type scale: H1 40 → 72px, H2 30 → 48px, lead 18 → 24px. */
+  --text-h1: clamp(2.5rem, 1.2rem + 4vw, 4.5rem);
+  --text-h1--line-height: 1;
+  --text-h1--letter-spacing: -0.025em;
+  --text-h1--font-weight: 560;
 
-  /* Oversized editorial headings (featured work, closing frame). */
-  --text-statement: clamp(2.5rem, 1.1rem + 4.6vw, 5rem);
-  --text-statement--line-height: 1;
-  --text-statement--letter-spacing: -0.04em;
-  --text-statement--font-weight: 700;
+  --text-h2: clamp(1.875rem, 1.2rem + 2.2vw, 3rem);
+  --text-h2--line-height: 1.06;
+  --text-h2--letter-spacing: -0.022em;
+  --text-h2--font-weight: 540;
 
-  --text-closing: clamp(3rem, 0.6rem + 7.4vw, 8.25rem);
-  --text-closing--line-height: 0.94;
-  --text-closing--letter-spacing: -0.048em;
-  --text-closing--font-weight: 700;
+  --text-h3: clamp(1.5rem, 1.25rem + 0.8vw, 2rem);
+  --text-h3--line-height: 1.12;
+  --text-h3--letter-spacing: -0.018em;
+  --text-h3--font-weight: 540;
 
-  /* Service index titles. */
-  --text-index: clamp(1.75rem, 1.15rem + 2.2vw, 3rem);
-  --text-index--line-height: 1.05;
-  --text-index--letter-spacing: -0.03em;
-  --text-index--font-weight: 600;
+  --text-lead: clamp(1.125rem, 1rem + 0.55vw, 1.5rem);
+  --text-lead--line-height: 1.4;
+  --text-lead--letter-spacing: -0.01em;
 
-  --text-h2: clamp(2rem, 1.35rem + 2.4vw, 3.25rem);
-  --text-h2--line-height: 1.08;
-  --text-h2--letter-spacing: -0.028em;
-  --text-h2--font-weight: 700;
+  --text-body: 1rem;
+  --text-body--line-height: 1.6;
 
-  --text-h3: 1.25rem;
-  --text-h3--line-height: 1.3;
-  --text-h3--letter-spacing: -0.012em;
-  --text-h3--font-weight: 600;
+  --text-label: 0.75rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.08em;
+  --text-label--font-weight: 500;
 
-  --text-lead: 1.125rem;
-  --text-lead--line-height: 1.65;
+  --radius-control: 8px;
+  --radius-media: 12px;
 
-  --text-eyebrow: 0.8125rem;
-  --text-eyebrow--line-height: 1.2;
-  --text-eyebrow--letter-spacing: 0.14em;
-  --text-eyebrow--font-weight: 600;
-
-  --radius-control: 6px;
-  --radius-card: 14px;
-
-  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
-
-  --animate-rise: rise 600ms var(--ease-out-soft) both;
-
-  @keyframes rise {
-    from {
-      opacity: 0;
-      transform: translateY(12px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+  /* Motion tokens. */
+  --ease-out: cubic-bezier(0.165, 0.84, 0.44, 1);
+  --ease-io: cubic-bezier(0.455, 0.03, 0.515, 0.955);
+  --ease-in: cubic-bezier(0.32, 0, 0.67, 0);
 }
 
-/*
- * Page gutter: distance from the content edge to the viewport edge.
- * Matches <Container> padding; beyond 1376px it grows with the viewport.
- * Used by the bleed utilities so media can run to the screen edge.
- */
 :root {
-  --gutter: 1.25rem;
-}
-@media (min-width: 40rem) {
-  :root {
-    --gutter: 1.5rem;
-  }
-}
-@media (min-width: 48rem) {
-  :root {
-    --gutter: 2rem;
-  }
-}
-@media (min-width: 80rem) {
-  :root {
-    --gutter: max(3rem, calc((100vw - 80rem) / 2));
-  }
-}
-
-@utility bleed-right {
-  margin-right: calc(var(--gutter) * -1);
-}
-
-@utility bleed-left {
-  margin-left: calc(var(--gutter) * -1);
+  --header-h: 4rem;
+  --t-hover-in: 100ms;
+  --t-hover-out: 250ms;
+  --t-overlay: 180ms;
+  --t-swap: 300ms;
+  --t-reveal: 560ms;
+  --t-hero: 900ms;
 }
 
 /*
- * "Crafted Systems" geometry, taken from the locked B monogram:
- * - the angled cut under the top bar (about 31°): facet-tl
- * - the 45° fold at the lower left: facet-bl / facet-br
- * - the step where the bar meets the bowl: step-down / step-up edges
- * Clip paths only. The logo itself is never redrawn.
+ * Media frame: a 1px ring and two very soft shadow layers.
+ * Real interface captures sit inside it; no browser chrome.
  */
-:root {
-  --facet: clamp(1.75rem, 1rem + 3.4vw, 4.5rem);
-  --step-h: clamp(2rem, 1.25rem + 2.4vw, 3.75rem);
-  --step-x: 58%;
+@utility media-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-media);
+  background-color: var(--color-light);
+  box-shadow:
+    0 0 0 1px rgb(11 19 32 / 0.08),
+    0 2px 6px rgb(11 19 32 / 0.04),
+    0 16px 40px -12px rgb(11 19 32 / 0.12);
 }
 
-@utility facet-tl {
-  clip-path: polygon(var(--facet) 0, 100% 0, 100% 100%, 0 100%, 0 calc(var(--facet) * 0.6));
+@utility media-frame-dark {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-media);
+  background-color: var(--color-charcoal);
+  box-shadow:
+    0 0 0 1px rgb(248 250 252 / 0.1),
+    0 24px 64px -24px rgb(0 0 0 / 0.6);
 }
 
-@utility facet-br {
-  clip-path: polygon(0 0, 100% 0, 100% calc(100% - var(--facet)), calc(100% - var(--facet)) 100%, 0 100%);
-}
-
-@utility facet-bl {
-  clip-path: polygon(0 0, 100% 0, 100% 100%, var(--facet) 100%, 0 calc(100% - var(--facet)));
-}
-
-/* Small blue facet that sits in a facet-tl cut, echoing the two-tone mark. */
-@utility facet-mark {
-  width: calc(var(--facet) * 0.62);
-  height: calc(var(--facet) * 0.37);
-  clip-path: polygon(0 0, 100% 0, 0 100%);
-}
-
-/* Stepped chapter edges: a band of the section colour with one 45° step. */
-@utility step-down {
-  height: var(--step-h);
-  clip-path: polygon(0 0, 100% 0, 100% 100%, calc(var(--step-x) + var(--step-h)) 100%, var(--step-x) 0);
-}
-
-@utility step-up {
-  height: var(--step-h);
-  clip-path: polygon(0 100%, 0 0, calc(100% - var(--step-x) - var(--step-h)) 0, calc(100% - var(--step-x)) 100%);
-}
-
-/* Blue fold facet riding the diagonal of a step-up edge. */
-@utility step-facet {
-  clip-path: polygon(
-    calc(100% - var(--step-x) - var(--step-h)) 0,
-    calc(100% - var(--step-x) - var(--step-h) * 0.4) 0,
-    calc(100% - var(--step-x)) 100%
-  );
-}
-
-/*
- * Hero type scale. Desktop H1 reaches 96px; the interlocking hero media
- * starts below its second line, so both read from one variable.
- */
-@utility hero-scale {
-  --hero-fs: clamp(2.5rem, 1rem + 7vw, 4.5rem);
-  --hero-lh: 0.94;
-  @media (min-width: 64rem) {
-    --hero-fs: clamp(4.25rem, 6.55vw, 6rem);
-    --hero-lh: 0.92;
+/* Hover transitions: fast in, slower out. */
+@utility hover-ease {
+  transition-duration: var(--t-hover-out);
+  transition-timing-function: var(--ease-out);
+  &:hover {
+    transition-duration: var(--t-hover-in);
   }
 }
 
 /*
- * Hero entrance: CSS only, plays once on load, ends in the resting state.
+ * Hero entrance (CSS only, plays once, ends in the resting state).
+ * Each H1 line: fade, 20px rise and 8px blur, 90ms apart.
  */
-@keyframes line-up {
-  from {
-    transform: translateY(104%);
-  }
-  to {
-    transform: none;
-  }
-}
-
-@keyframes facet-wipe {
-  from {
-    clip-path: polygon(0 0, 0 0, -40% 100%, -40% 100%);
-  }
-  to {
-    clip-path: polygon(0 0, 140% 0, 100% 100%, -40% 100%);
-  }
-}
-
-@keyframes fade-up {
+@keyframes line-in {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(20px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
@@ -212,77 +136,162 @@
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .enter-line > span {
-    animation: line-up 700ms var(--ease-out-soft) both;
+/* Starts half-visible so the real capture paints immediately (protects LCP). */
+@keyframes window-in {
+  from {
+    opacity: 0.5;
+    transform: scale(1.015);
   }
-  .enter-line:nth-child(2) > span {
-    animation-delay: 70ms;
-  }
-  .enter-line:nth-child(3) > span {
-    animation-delay: 140ms;
-  }
-  .enter-line:nth-child(4) > span {
-    animation-delay: 210ms;
-  }
-  .enter-wipe {
-    animation: facet-wipe 700ms var(--ease-out-soft) 200ms both;
-  }
-  .enter-fade {
-    animation: fade-up 600ms var(--ease-out-soft) 320ms both;
+  to {
+    opacity: 1;
+    transform: none;
   }
 }
 
-/* Line mask: clips the rising line without cutting descenders. */
-.enter-line {
-  display: block;
-  overflow: clip;
-  padding-bottom: 0.08em;
-  margin-bottom: -0.08em;
+@keyframes progress-fill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
 }
-.enter-line > span {
-  display: block;
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter-line {
+    animation: line-in var(--t-hero) var(--ease-out) both;
+    animation-delay: calc(var(--i, 0) * 90ms);
+  }
+  .enter-rise {
+    animation: rise-in 600ms var(--ease-out) 360ms both;
+  }
+  .enter-window {
+    animation: window-in var(--t-hero) var(--ease-out) both;
+  }
 }
 
 /*
- * Scroll reveals. Content is visible by default; hidden states apply only
- * after <MotionObserver> confirms JavaScript and no reduced-motion
- * preference by setting data-motion on <html>.
+ * Scroll-linked light travelling along the hero frame's 1px border.
+ * Scroll-driven CSS only; absent without support or with reduced motion.
+ */
+@property --border-light {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+
+@keyframes border-light {
+  from {
+    --border-light: 0%;
+  }
+  to {
+    --border-light: 100%;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .border-light::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      border-radius: inherit;
+      padding: 1px;
+      background: radial-gradient(
+        180px circle at var(--border-light) 0%,
+        rgb(147 197 253 / 0.55),
+        transparent 70%
+      );
+      mask:
+        linear-gradient(#000 0 0) content-box exclude,
+        linear-gradient(#000 0 0);
+      animation: border-light linear both;
+      animation-timeline: view();
+      animation-range: contain 0% exit 60%;
+    }
+  }
+}
+
+/*
+ * Process track: fills with blue as the sequence scrolls through view.
+ * Without scroll-driven animation support (or with reduced motion) the
+ * track simply renders as a static hairline with lit markers.
+ */
+@keyframes track-x {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes track-y {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* Markers are lit by default; the scroll-driven version starts them unlit. */
+@keyframes marker-on {
+  from {
+    background-color: var(--color-navy);
+    border-color: var(--color-line-dark-strong);
+  }
+  to {
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .process-steps {
+      view-timeline-name: --process;
+    }
+    .process-fill {
+      animation: track-x linear both;
+      animation-timeline: --process;
+      animation-range: cover 25% cover 60%;
+    }
+    @media (max-width: 63.99rem) {
+      .process-fill {
+        animation-name: track-y;
+        animation-range: cover 15% cover 75%;
+      }
+    }
+    .process-marker {
+      animation: marker-on linear both;
+      animation-timeline: --process;
+    }
+  }
+}
+
+/*
+ * Section reveals: headings, leads and service media only.
+ * Visible by default; hidden states apply only after <MotionObserver>
+ * confirms JavaScript and no reduced-motion preference (html[data-motion]).
  */
 @media (prefers-reduced-motion: no-preference) {
   [data-reveal] {
-    transition-timing-function: var(--ease-out-soft);
+    transition:
+      opacity var(--t-reveal) var(--ease-out),
+      transform var(--t-reveal) var(--ease-out),
+      filter var(--t-reveal) var(--ease-out);
+    transition-delay: calc(var(--i, 0) * 80ms);
   }
-  [data-reveal="wipe"] {
-    clip-path: polygon(0 0, 140% 0, 100% 100%, -40% 100%);
-    transition-property: clip-path;
-    transition-duration: 700ms;
-  }
-  [data-reveal="wipe"] img {
-    transition: transform 700ms var(--ease-out-soft);
-  }
-  [data-reveal="rise"] {
-    transition-property: opacity, transform;
-    transition-duration: 500ms;
-  }
-  [data-reveal="line"] {
-    transform-origin: left;
-    transition-property: transform;
-    transition-duration: 700ms;
-  }
-
-  :root[data-motion] [data-reveal="wipe"]:not([data-shown]) {
-    clip-path: polygon(0 0, 0 0, -40% 100%, -40% 100%);
-  }
-  :root[data-motion] [data-reveal="wipe"]:not([data-shown]) img {
-    transform: scale(1.06);
-  }
-  :root[data-motion] [data-reveal="rise"]:not([data-shown]) {
+  :root[data-motion] [data-reveal]:not([data-shown]) {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(12px);
   }
-  :root[data-motion] [data-reveal="line"]:not([data-shown]) {
-    transform: scaleX(0);
+  :root[data-motion] [data-reveal="media"]:not([data-shown]) {
+    transform: translateY(8px);
+    filter: blur(2px);
   }
 }
 
@@ -290,6 +299,7 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
+    scroll-padding-top: calc(var(--header-h) + 1.5rem);
   }
 
   html[data-menu-open="true"] {
@@ -300,6 +310,7 @@
     background-color: var(--color-light);
     color: var(--color-navy);
     font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
