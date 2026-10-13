@@ -11,6 +11,13 @@ const nextConfig: NextConfig = {
       },
     },
   },
+  async redirects() {
+    // Earlier service slugs.
+    return [
+      { source: "/services/ecommerce", destination: "/services/e-commerce", permanent: true },
+      { source: "/services/systems", destination: "/services/business-systems", permanent: true },
+    ];
+  },
   async rewrites() {
     // Browsers request /favicon.ico by default; serve the locked brand asset.
     return [{ source: "/favicon.ico", destination: "/brand/favicon/favicon.ico" }];

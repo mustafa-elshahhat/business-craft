@@ -21,6 +21,11 @@ function normaliseUrl(value: string | null): string | null {
   }
 }
 
+function normaliseWhatsApp(value: string | null): string | null {
+  const digits = value?.replace(/\D/g, "") ?? "";
+  return digits.length >= 8 ? digits : null;
+}
+
 export type SocialPlatform = "linkedin" | "instagram" | "facebook" | "x";
 
 export const siteConfig = {
@@ -35,8 +40,10 @@ export const siteConfig = {
   contact: {
     /** Pending — set CONTACT_EMAIL. */
     email: optional(process.env.CONTACT_EMAIL),
-    /** Pending — set CONTACT_PHONE (international format). */
+    /** Pending — set CONTACT_PHONE (international format, e.g. +20…). */
     phone: optional(process.env.CONTACT_PHONE),
+    /** Pending — set CONTACT_WHATSAPP (digits only, international, e.g. 2010…). */
+    whatsapp: normaliseWhatsApp(optional(process.env.CONTACT_WHATSAPP)),
   },
 
   /** Pending — add real profile URLs only. Unset platforms are not rendered. */
@@ -50,21 +57,6 @@ export const siteConfig = {
 
 export const primaryCta = { label: "Get a Free Consultation", href: "/contact" } as const;
 export const secondaryCta = { label: "See Our Work", href: "/work" } as const;
-
-export const mainNav = [
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-] as const;
-
-export const footerNav = [
-  { label: "Home", href: "/" },
-  { label: "Services", href: "/services" },
-  { label: "Work", href: "/work" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
-] as const;
 
 /** Locked brand assets (docs/BRAND_ASSETS.md). Paths are URL-encoded. */
 export const brandAssets = {

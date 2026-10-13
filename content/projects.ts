@@ -8,6 +8,7 @@ import soulmateHome from "@/assets/projects/soulmate-gift-store-home.jpg";
 import soulmateHomeMobile from "@/assets/projects/soulmate-gift-store-home-mobile.jpg";
 import drMirrorHome from "@/assets/projects/dr-mirror-home.jpg";
 import saadHome from "@/assets/projects/saad-logistic-desktop.jpg";
+import saadHomeMobile from "@/assets/projects/saad-logistic-home-mobile.jpg";
 
 /**
  * Portfolio projects (docs/CONTENT_AND_PROJECTS.md).
@@ -98,18 +99,21 @@ export const projects: readonly Project[] = [
     slug: "saad-logistic",
     name: "Saad Logistic",
     category: "Websites",
-    summary: null,
+    summary: "Company website for a shipping and logistics provider, in Arabic and English.",
     liveUrl: "https://www.saadlogistic.com/",
+    bilingual: true,
     media: {
-      /** Cropped above the floating chat launcher. */
+      /** Arabic home page, cropped above the floating chat launcher. */
       desktop: { src: saadHome, alt: "Saad Logistic home page in Arabic: shipping and logistics hero with booking buttons" },
+      mobile: { src: saadHomeMobile, alt: "Saad Logistic home page in Arabic on a phone" },
     },
-    featured: false,
+    featured: true,
   },
-  /** A separate project from Saad Logistic. Not shown on the homepage until a verified visual exists. */
+  /** A separate project from Saad Logistic. Not published until a verified public visual exists. */
   { slug: "slc-logistics", name: "SLC Logistics", category: null, summary: null, liveUrl: null, featured: false },
-  { slug: "auto-parts-pos", name: "Auto Parts POS", category: "Systems", summary: null, liveUrl: null, featured: false },
-  { slug: "lap-service-pos", name: "Lap Service POS", category: "Systems", summary: null, liveUrl: null, featured: false },
+  /** Screens show client logos and are not published (docs/CONTENT_AND_PROJECTS.md). */
+  { slug: "auto-parts-pos", name: "Auto Parts POS", category: "Systems", summary: "Point of sale for an auto-parts retailer.", liveUrl: null, featured: false },
+  { slug: "lap-service-pos", name: "Lap Service POS", category: "Systems", summary: "Point of sale for a repair workshop.", liveUrl: null, featured: false },
   /** Scope not yet verified: not used as Systems proof. */
   { slug: "e-library-web-app", name: "E-Library Web App", category: null, summary: null, liveUrl: null, featured: false },
   { slug: "moonwatch", name: "MoonWatch", category: null, summary: null, liveUrl: null, featured: false },

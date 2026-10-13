@@ -1,24 +1,6 @@
 import { Container } from "@/components/ui/container";
+import { principles } from "@/content/company";
 
-/** Principles from docs/PAGE_BLUEPRINTS.md. No service-level or numeric claims. */
-const principles = [
-  {
-    title: "Business Focus",
-    text: "We start from what your business needs to achieve, then decide what to build. Every feature has a reason to exist.",
-  },
-  {
-    title: "Modern & Scalable",
-    text: "Clean, maintainable builds on modern foundations, structured so your product can grow with your business.",
-  },
-  {
-    title: "End-to-End Delivery",
-    text: "Planning, design, development and launch handled in one place, by one team that understands the whole project.",
-  },
-  {
-    title: "Clear Communication",
-    text: "Direct, simple updates throughout the project, so you always know where things stand and what comes next.",
-  },
-] as const;
 
 /**
  * Asymmetric editorial composition: the statement holds the left, the lead

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 
 import { Footer } from "@/components/layout/footer";
 import { Header } from "@/components/layout/header";
+import { JsonLd } from "@/components/sections/json-ld";
 import { brandAssets, siteConfig } from "@/lib/site";
 
 import "./globals.css";
@@ -12,6 +13,8 @@ const inter = Inter({
   display: "swap",
   variable: "--font-inter",
 });
+
+const socialProfiles = Object.values(siteConfig.social).filter((url): url is string => url !== null);
 
 const defaultTitle = `${siteConfig.name} — ${siteConfig.descriptor}`;
 
@@ -60,6 +63,33 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           {children}
         </main>
         <Footer />
+        {siteConfig.url ? (
+          <JsonLd
+            data={{
+              "@context": "https://schema.org",
+              "@graph": [
+                {
+                  "@type": "Organization",
+                  "@id": `${siteConfig.url}/#organization`,
+                  name: siteConfig.name,
+                  url: siteConfig.url,
+                  logo: `${siteConfig.url}${brandAssets.favicon.icon512}`,
+                  description: siteConfig.description,
+                  ...(siteConfig.contact.email ? { email: siteConfig.contact.email } : {}),
+                  ...(socialProfiles.length ? { sameAs: socialProfiles } : {}),
+                },
+                {
+                  "@type": "WebSite",
+                  "@id": `${siteConfig.url}/#website`,
+                  name: siteConfig.name,
+                  url: siteConfig.url,
+                  inLanguage: "en",
+                  publisher: { "@id": `${siteConfig.url}/#organization` },
+                },
+              ],
+            }}
+          />
+        ) : null}
       </body>
     </html>
   );

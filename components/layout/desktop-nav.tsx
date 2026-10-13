@@ -253,7 +253,7 @@ function ServicesPanel() {
         ))}
       </ul>
       <div className="mt-2 flex gap-1 border-t border-line-dark pt-2">
-        <PanelFooterLink href="/#process">How We Work</PanelFooterLink>
+        <PanelFooterLink href="/services#process">How We Work</PanelFooterLink>
         <PanelFooterLink href={primaryCta.href}>{primaryCta.label}</PanelFooterLink>
       </div>
     </div>

@@ -6,6 +6,7 @@ import dermivaBuybox from "@/assets/projects/dermiva-skincare-buybox.jpg";
 import { TextLink } from "@/components/ui/button";
 import { Container } from "@/components/ui/container";
 import { TwoTone } from "@/components/ui/section-heading";
+import { Capabilities, SpecSheet } from "@/components/ui/spec-sheet";
 import { getProject, projectHost, projects } from "@/content/projects";
 import { serviceHref, services, type ServiceSlug } from "@/content/services";
 
@@ -17,68 +18,16 @@ const systemsProjects = projects.filter((project) => project.category === "Syste
 /** Capabilities per service, from docs/PAGE_BLUEPRINTS.md §7–10. No provider or platform claims. */
 const capabilities: Record<ServiceSlug, string[]> = {
   websites: ["Responsive on every screen", "Fast and SEO-friendly", "Structured around your goals", "Clear calls to action"],
-  ecommerce: ["Catalogue and categories", "Product variants", "Cart and checkout", "English and Arabic storefronts"],
-  systems: ["Custom business workflows", "Dashboards and reporting", "Roles and permissions", "Inventory and operations"],
+  "e-commerce": ["Catalogue and categories", "Product variants", "Cart and checkout", "English and Arabic storefronts"],
+  "business-systems": ["Custom business workflows", "Dashboards and reporting", "Roles and permissions", "Inventory and operations"],
   "mobile-apps": ["Accounts and sign-in", "Notifications", "APIs and integrations"],
 };
 
 /** Services shown as typographic spec sheets until publishable screens exist. */
-const SPEC: ServiceSlug[] = ["systems", "mobile-apps"];
+const SPEC: ServiceSlug[] = ["business-systems", "mobile-apps"];
 
 function Caption({ children }: { children: ReactNode }) {
   return <p className="mt-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.8125rem] text-muted">{children}</p>;
-}
-
-function Capabilities({ items, tone = "light" }: { items: string[]; tone?: "light" | "dark" }) {
-  const line = tone === "dark" ? "border-line-dark" : "border-line";
-  return (
-    <ul className={`grid content-start border-t ${line}`}>
-      {items.map((item) => (
-        <li key={item} className={`border-b ${line} py-2.5 text-[0.9375rem] ${tone === "dark" ? "text-white/90" : ""}`}>
-          {item}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-/**
- * Typographic spec sheet: a deliberate, minimal panel built from type,
- * hairlines and one state label. Blue marks real, confirmed state only.
- */
-function SpecSheet({
-  label,
-  state,
-  statement,
-  detail,
-  items,
-  footer,
-}: {
-  label: string;
-  state: { text: string; confirmed: boolean };
-  statement: string;
-  detail: string;
-  items: string[];
-  footer: ReactNode;
-}) {
-  return (
-    <div className="overflow-hidden rounded-[12px] bg-navy text-white">
-      <div className="flex items-center justify-between gap-4 border-b border-line-dark px-6 py-4 sm:px-10">
-        <p className="text-label text-mist uppercase">{label}</p>
-        <p className="flex items-center gap-2 text-[0.8125rem] text-white/80">
-          {state.confirmed ? <span aria-hidden="true" className="size-1.5 rounded-full bg-accent" /> : null}
-          {state.text}
-        </p>
-      </div>
-      <div className="grid gap-10 px-6 py-8 sm:px-10 sm:py-12 md:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)] md:gap-x-12">
-        <p className="max-w-[18ch] text-[clamp(1.75rem,1.2rem+1.9vw,2.625rem)] leading-[1.08] font-[540] tracking-[-0.028em]">
-          {statement} <span className="text-mist">{detail}</span>
-        </p>
-        <Capabilities items={items} tone="dark" />
-      </div>
-      <div className="border-t border-line-dark">{footer}</div>
-    </div>
-  );
 }
 
 function Evidence({ slug }: { slug: ServiceSlug }) {
@@ -98,7 +47,7 @@ function Evidence({ slug }: { slug: ServiceSlug }) {
     );
   }
 
-  if (slug === "ecommerce") {
+  if (slug === "e-commerce") {
     return (
       <figure>
         {/* Product detail at reading scale, then the cart it leads to */}
@@ -132,14 +81,14 @@ function Evidence({ slug }: { slug: ServiceSlug }) {
     );
   }
 
-  if (slug === "systems") {
+  if (slug === "business-systems") {
     return (
       <SpecSheet
         label="Business Systems"
         state={{ text: "In our portfolio", confirmed: true }}
         statement="Built around your workflow."
-        detail="Not the other way round."
-        items={capabilities.systems}
+        detail="Operations, inventory and reporting."
+        items={capabilities["business-systems"]}
         footer={
           <ul className="grid sm:grid-cols-2">
             {systemsProjects.map((project, index) => (
