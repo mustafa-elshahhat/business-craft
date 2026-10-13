@@ -89,7 +89,7 @@ export function LiveWork({ projects }: { projects: LiveProject[] }) {
       }}
     >
       {/* Window */}
-      <div id="live-work-panel" role="tabpanel" aria-labelledby={`live-tab-${current.slug}`} className="relative pb-[9%] sm:pb-[6%]">
+      <div id="live-work-panel" role="tabpanel" aria-labelledby={`live-tab-${current.slug}`} className="relative pb-[9%] sm:pb-[6%] xl:-mx-8">
         <div className="media-frame-dark border-light aspect-[16/10]">
           {projects.map((project, index) => (
             <div

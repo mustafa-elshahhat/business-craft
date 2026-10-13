@@ -92,7 +92,7 @@ export function SoulmateStory({ steps }: { steps: StoryStep[] }) {
   return (
     <div
       ref={rootRef}
-      className="grid gap-y-10 lg:grid-cols-12 lg:gap-x-10"
+      className="grid gap-y-8 lg:grid-cols-12 lg:items-center lg:gap-x-10"
       onPointerEnter={(event) => event.pointerType === "mouse" && setHovered(true)}
       onPointerLeave={() => setHovered(false)}
       onFocus={() => setFocused(true)}
@@ -117,32 +117,21 @@ export function SoulmateStory({ steps }: { steps: StoryStep[] }) {
               tabIndex={selected ? 0 : -1}
               onClick={() => choose(index)}
               onKeyDown={onKey}
-              className="group relative block w-full border-t border-line py-5 pl-6 text-left last:border-b"
+              className="group relative block w-full border-t border-line py-4 pl-6 text-left last:border-b lg:py-5"
             >
-              {/* Vertical progress track */}
-              <span aria-hidden="true" className="absolute top-5 bottom-5 left-0 w-0.5 overflow-hidden bg-line">
-                {selected ? (
-                  <span
-                    key={`${active}-${manual}`}
-                    onAnimationEnd={() => go((active + 1) % steps.length)}
-                    style={{
-                      animationName: reduced || manual ? "none" : "track-y",
-                      animationDuration: `${STEP_MS}ms`,
-                      animationPlayState: running ? "running" : "paused",
-                    }}
-                    className="absolute inset-0 origin-top bg-action [animation-fill-mode:both] [animation-timing-function:linear]"
-                  />
-                ) : null}
-              </span>
-              <span className="flex items-center gap-3">
-                <span className={`text-[1.125rem] font-[540] tracking-[-0.01em] transition-colors duration-300 ${selected ? "text-navy" : "text-muted group-hover:text-navy"}`}>
+              {/* Active marker: the progress itself runs above the stage */}
+              <span
+                aria-hidden="true"
+                className={`absolute top-4 bottom-4 left-0 w-0.5 transition-colors duration-300 lg:top-5 lg:bottom-5 ${selected ? "bg-action" : "bg-line"}`}
+              />
+              <span className="flex items-baseline gap-3">
+                <span className="w-5 shrink-0 text-[0.8125rem] tabular-nums text-muted">{index + 1}</span>
+                <span className={`text-[1.0625rem] font-[540] tracking-[-0.01em] transition-colors duration-300 lg:text-[1.125rem] ${selected ? "text-navy" : "text-muted group-hover:text-navy"}`}>
                   {step.title}
                 </span>
-                {step.optional ? (
-                  <span className="text-[0.8125rem] text-muted">(optional)</span>
-                ) : null}
+                {step.optional ? <span className="text-[0.8125rem] text-muted">(optional)</span> : null}
               </span>
-              <span className={`mt-2 max-w-[24rem] text-[0.9375rem] leading-relaxed text-muted lg:block ${selected ? "block" : "hidden"}`}>
+              <span className={`mt-2 ml-8 max-w-[24rem] text-[0.9375rem] leading-relaxed text-muted lg:block ${selected ? "block" : "hidden"}`}>
                 {step.text}
               </span>
             </button>
@@ -150,7 +139,36 @@ export function SoulmateStory({ steps }: { steps: StoryStep[] }) {
         })}
       </div>
 
-      <div id="story-panel" role="tabpanel" aria-labelledby={`story-tab-${active}`} className="lg:col-span-8">
+      <div id="story-panel" role="tabpanel" aria-labelledby={`story-tab-${active}`} className="order-first lg:order-none lg:col-span-8 xl:-mr-8">
+        {/* Segmented progress: done, filling, upcoming */}
+        <div aria-hidden="true" className="flex gap-1.5">
+          {steps.map((step, index) => (
+            <span key={step.title} className="relative h-0.5 flex-1 overflow-hidden bg-line-strong">
+              {index < active ? <span className="absolute inset-0 bg-action" /> : null}
+              {index === active ? (
+                reduced || manual ? (
+                  <span className="absolute inset-0 bg-action" />
+                ) : (
+                  <span
+                    key={active}
+                    onAnimationEnd={() => go((active + 1) % steps.length)}
+                    style={{ animationDuration: `${STEP_MS}ms`, animationPlayState: running ? "running" : "paused" }}
+                    className="absolute inset-0 origin-left bg-action [animation:progress-fill_linear_both]"
+                  />
+                )
+              ) : null}
+            </span>
+          ))}
+        </div>
+        <p className="mt-4 mb-4 flex items-baseline gap-3 text-[0.875rem] md:mb-5">
+          <span className="text-label text-muted uppercase tabular-nums">
+            Step {active + 1} of {steps.length}
+          </span>
+          <span key={active} className="font-[540] text-navy motion-safe:animate-[rise-in_300ms_var(--ease-out)_both]">
+            {steps[active].title}
+          </span>
+        </p>
+
         <div className="media-frame aspect-[4/5] sm:aspect-[16/10]">
           {steps.map((step, index) =>
             mounted.has(index) ? (
@@ -159,8 +177,8 @@ export function SoulmateStory({ steps }: { steps: StoryStep[] }) {
                 aria-hidden={index !== active}
                 className={`absolute inset-0 ${
                   index === active
-                    ? "opacity-100 [transition:opacity_450ms_var(--ease-out)]"
-                    : "opacity-0 [transition:opacity_250ms_var(--ease-in)]"
+                    ? "opacity-100 [transition:opacity_450ms_var(--ease-out),transform_450ms_var(--ease-out)]"
+                    : "translate-y-2 opacity-0 [transition:opacity_250ms_var(--ease-in),transform_250ms_var(--ease-in)]"
                 }`}
               >
                 <Image src={step.mobile.src} alt={step.mobile.alt} fill sizes="92vw" className="object-cover object-top sm:hidden" />
@@ -168,7 +186,7 @@ export function SoulmateStory({ steps }: { steps: StoryStep[] }) {
                   src={step.desktop.src}
                   alt={step.desktop.alt}
                   fill
-                  sizes="(min-width: 1024px) 60vw, 92vw"
+                  sizes="(min-width: 1024px) 64vw, 92vw"
                   className="hidden object-cover object-top sm:block"
                 />
               </div>

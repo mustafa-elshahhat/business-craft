@@ -30,8 +30,8 @@ const proof = ["zts-fashion", "dermiva-skincare", "soulmate-gift-store", "dr-mir
 export function Hero() {
   return (
     <section aria-labelledby="hero-title" data-header="dark" className="bg-navy text-white">
-      <Container className="pt-[calc(var(--header-h)+3.5rem)] md:pt-[calc(var(--header-h)+5rem)] lg:pt-[calc(var(--header-h)+6rem)]">
-        <div className="grid gap-y-8 xl:grid-cols-12 xl:items-end xl:gap-x-10">
+      <Container className="pt-[calc(var(--header-h)+1.75rem)] md:pt-[calc(var(--header-h)+4rem)] xl:pt-[calc(var(--header-h)+4.5rem)]">
+        <div className="grid gap-y-5 md:gap-y-8 xl:grid-cols-12 xl:items-end xl:gap-x-10">
           <h1 id="hero-title" className="text-h1 text-balance xl:col-span-8 xl:text-wrap">
             <span className="enter-line block" style={{ "--i": 0 } as React.CSSProperties}>
               Websites, <span className="whitespace-nowrap">E-commerce,</span>
@@ -45,10 +45,10 @@ export function Hero() {
           </h1>
 
           <div className="enter-rise xl:col-span-4 xl:pb-1">
-            <p className="max-w-[26rem] text-[1.0625rem] leading-relaxed text-mist">
+            <p className="max-w-[26rem] text-base leading-relaxed text-mist md:text-[1.0625rem]">
               We design and build digital products that help businesses sell more, work smarter and grow faster.
             </p>
-            <div className="mt-7 flex flex-wrap items-center gap-x-7 gap-y-2">
+            <div className="mt-5 flex flex-wrap items-center gap-x-6 gap-y-1 md:mt-7 md:gap-x-7">
               <ButtonLink href={primaryCta.href} arrow>
                 {primaryCta.label}
               </ButtonLink>
@@ -59,7 +59,7 @@ export function Hero() {
           </div>
         </div>
 
-        <div className="enter-window mt-12 md:mt-16 lg:mt-20">
+        <div className="enter-window mt-8 md:mt-14 xl:mt-16">
           <LiveWork projects={live} />
         </div>
 

@@ -48,7 +48,7 @@ const steps: StoryStep[] = [
 export function StorySection() {
   return (
     <section aria-labelledby="story-title" data-header="light" className="bg-light text-navy">
-      <Container className="py-24 md:py-32 lg:py-40">
+      <Container className="py-16 md:py-28 lg:py-40">
         <div className="grid gap-y-6 lg:grid-cols-12 lg:items-end lg:gap-x-10">
           <div className="lg:col-span-8">
             <Label>Case story · Soulmate Gift Store</Label>
@@ -61,7 +61,7 @@ export function StorySection() {
           </div>
         </div>
 
-        <div className="mt-14 lg:mt-20">
+        <div className="mt-10 md:mt-14 lg:mt-16">
           <SoulmateStory steps={steps} />
         </div>
       </Container>
