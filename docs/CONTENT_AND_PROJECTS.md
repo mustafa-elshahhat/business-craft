@@ -1,32 +1,43 @@
 # Business Craft — Content and Project Notes
 
-## 1. Known project candidates
+## 1. Projects and verified facts
 
-These are projects previously identified as strong portfolio candidates for Business Craft. Use only the projects that are ready and appropriate to publish.
+Final owner decisions (October 2026). These override any older note in this pack or in the owner's personal portfolio.
 
-### Public links already supplied
+### Official names and public links
 
 - **ZTS Fashion** — https://www.ztsbrand.com/en
-- **Dr Mirror** — https://dr-mirror.vercel.app/
-- **Soulmate Gift Store** — https://soulmate-accessories-store.vercel.app/
 - **Dermiva Skincare** — https://dermiva-eg.vercel.app/en
-- **Saad Logistic / SLC** — https://www.saadlogistic.com/
+- **Soulmate Gift Store** — https://soulmate-accessories-store.vercel.app/
+- **Dr Mirror** — https://dr-mirror.vercel.app/
+- **Saad Logistic** — https://www.saadlogistic.com/
+- **SLC Logistics** — a separate project from Saad Logistic. Never merge the two. Not shown on the homepage until a verified public visual exists.
+- **Auto Parts POS**
+- **Lap Service POS**
+- **E-Library Web App**
 
-### Additional known project names
+Other known names (MoonWatch, Bakery Bread Counting) stay unpublished until their delivery and publishable details are confirmed.
 
-- E-Library Web App
-- Auto Parts POS
-- MoonWatch
-- Lap Service POS
-- Bakery Bread Counting / computer-vision project
+### Verified on the live sites (captured October 2026)
 
-Their public links and publishable details should be resolved before shipping them as live case studies.
+Evidence and screenshots are recorded in `assets/captures/<project>/CAPTURES.md`.
 
-## 2. Suggested portfolio taxonomy
+| Project | Category | English | Arabic | RTL |
+|---|---|---|---|---|
+| ZTS Fashion | E-commerce | live | live (`/ar`) | yes, mirrored layout |
+| Dermiva Skincare | E-commerce | live | live (`/ar`) | yes, mirrored layout |
+| Soulmate Gift Store | E-commerce | live | live (language switch) | yes, mirrored layout |
+| Dr Mirror | E-commerce | live (`/en`) | live (default) | yes, mirrored layout |
+
+- **Dr Mirror is E-commerce**: product catalogue, categories, EGP prices, size and colour variants with stock, cart and a checkout route. Do not use it as evidence for the Websites service.
+- **Soulmate box builder**: four real stages — Choose the box, Fill each place, Write their label, Review & add to bag. Personalisation is optional; the label stage only appears when a piece is personalised.
+- **Dermiva**: the owner's portfolio describes it as a front-end build. Never imply live order processing.
+- Bilingual English/Arabic with right-to-left layouts may be presented as proof for the four projects above only.
+
+## 2. Portfolio taxonomy
 
 ### Websites
 
-- Dr Mirror
 - Saad Logistic
 - other marketing/business sites as approved
 
@@ -35,20 +46,20 @@ Their public links and publishable details should be resolved before shipping th
 - ZTS Fashion
 - Dermiva Skincare
 - Soulmate Gift Store
+- Dr Mirror
 
 ### Systems
 
 - Auto Parts POS
-- E-Library Web App
 - Lap Service POS
-- logistics/operations systems where appropriate
-- bakery counting system if presented as an operational solution
+
+Existing POS screenshots show client logos and must not be published or edited. Use a typographic evidence panel until clean source states are supplied.
+
+E-Library Web App is not used as Systems proof until its actual scope is verified (available evidence describes a front-end/static build).
 
 ### Mobile Apps
 
-- MoonWatch if the delivered product is genuinely a mobile app or mobile product
-
-Do not misclassify a web app as a native mobile app merely for visual balance.
+No publishable app proof yet. Use a typographic capability panel. Never present responsive websites as app proof, never fabricate app screens, and do not show MoonWatch until it is confirmed as a delivered mobile app.
 
 ## 3. Project card copy rules
 
@@ -58,6 +69,8 @@ Each card should contain no more than:
 - Project name
 - 1 concise sentence describing the actual work
 - View Project
+
+The homepage work heading is "Selected Work." Do not use "Real Results" or any wording that implies measured outcomes that have not been verified.
 
 Example structure:
 

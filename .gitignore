@@ -40,3 +40,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Raw capture masters stay out of git; only the verification notes are kept.
+/assets/captures/**
+!/assets/captures/*/
+!/assets/captures/*/CAPTURES.md
+!/assets/captures/*/FINDINGS.md
