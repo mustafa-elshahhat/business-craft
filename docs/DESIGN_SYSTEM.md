@@ -1,214 +1,110 @@
 # Business Craft — Design System
 
-## 1. Design principles
+This documents the shipped design ("Live Work"). Tokens live in `app/globals.css` (`@theme`); components in `components/`. When this file and the code disagree, the code is the source of truth and this file should be updated.
 
-1. **Clarity before decoration** — hierarchy must be obvious in under 5 seconds.
-2. **Premium through restraint** — whitespace, typography, imagery, and rhythm create quality; not visual effects.
-3. **Real work is the hero** — use actual product/project visuals whenever possible.
-4. **Consistent contrast** — dark sections are intentional anchors, not the whole website.
-5. **Reusable components** — avoid one-off styling per section.
+## 1. Principles
 
-## 2. Color tokens
+1. **The work is the visual identity.** Real captures of live projects carry most of the visual weight. No illustrations, stock photography, device mock-ups, fake browser chrome or invented UI.
+2. **Precision over decoration.** Hierarchy comes from type, spacing, hairlines and one accent colour. No gradients, blobs, glass, glows or ornaments.
+3. **Evidence beside claims.** Every capability shown next to the live project that proves it; where screens cannot be published, a typographic panel says so honestly.
+4. **Calm chapters.** Pages alternate navy and light chapters with a fixed, theme-aware header.
+5. **Motion explains state.** Motion marks entrance, selection and progress, never decoration.
 
-Recommended CSS variables:
+Reference blend: Linear (precision, motion discipline), Attio (product storytelling), Mercury (clear information architecture, trust), Ramotion (portfolio hierarchy). Never copied.
 
-```css
-:root {
-  --bc-navy: #0B1320;
-  --bc-charcoal: #1F2937;
-  --bc-blue: #3B82F6;
-  --bc-gray: #94A3B8;
-  --bc-light: #F8FAFC;
-  --bc-white: #FFFFFF;
+## 2. Colour
 
-  --bc-text: #0B1320;
-  --bc-text-muted: #64748B;
-  --bc-border: rgba(11, 19, 32, 0.10);
-  --bc-border-dark: rgba(255, 255, 255, 0.12);
-}
-```
+| Token | Value | Use |
+|---|---|---|
+| `navy` | `#0B1320` | Dark chapters, text on light |
+| `charcoal` | `#1F2937` | Media frame fill on dark |
+| `accent` | `#3B82F6` | State only: active bars, progress, markers, focus ring |
+| `action` | `#2563EB` | Primary buttons and active progress (white text ≥ 4.5:1) |
+| `muted` | `#64748B` | Secondary text on light |
+| `subtle` | `#94A3B8` | Disabled controls, placeholders |
+| `mist` | `#8B95A7` | Secondary text on navy (≥ 4.5:1 on navy) |
+| `light` | `#F8FAFC` | Light chapters |
+| `white` | `#FFFFFF` | Alternate light chapters, form fields |
+| `line` / `line-strong` | navy at 10% / 16% | Hairlines on light |
+| `line-dark` / `line-dark-strong` | `#F8FAFC` at 10% / 16% | Hairlines on navy |
 
-Do not create a rainbow of extra brand colors. Product screenshots may contain their own project-specific colors; the Business Craft chrome stays navy/white/blue.
+The logo's own blues (`#1D7FFD`, `#0669FC`, `#0261F8`) exist only inside the locked logo files and are never used as UI colours. The default Tailwind palette is removed, so only these tokens exist.
 
 ## 3. Typography
 
-Font: `Inter`
+Inter only (`next/font`, self-hosted, `display: swap`).
 
-Suggested responsive scale:
+| Role | Size | Weight / tracking | Notes |
+|---|---|---|---|
+| H1 `text-h1` | 40px → 72px | 560, −0.025em, line-height 1 | Two-tone: statement in white/navy, elaboration in `mist`/`muted` |
+| H2 `text-h2` | 30px → 48px | 540, −0.022em | |
+| H3 `text-h3` | 24px → 32px | 540, −0.018em | |
+| Lead `text-lead` | 18px → 24px | 400, line-height 1.4 | |
+| Body `text-body` | 16px | 400, line-height 1.6 | |
+| Label `text-label` | 12px uppercase | 500, +0.08em | Structural labels only, sparingly |
 
-- Display / Hero: `clamp(3rem, 5vw, 4.5rem)` / 700
-- H2: `clamp(2.25rem, 3.5vw, 3.25rem)` / 700
-- H3: `1.5rem–2rem` / 600–700
-- Body large: `1.125rem` / 400–500
-- Body: `1rem` / 400
-- Small: `0.8125rem–0.875rem`
-- Eyebrow: `0.75rem–0.8125rem`, uppercase, increased letter spacing
+No display type above 72px, no 700+ weights, no decorative numbers.
 
-Body copy max width: roughly 60–72 characters where practical.
+## 4. Layout and spacing
 
-## 4. Layout
+- Container: `components/ui/container.tsx` — max 1376px including gutters; gutters 20 / 24 / 32 / 48px.
+- Grid: 12 columns from `lg` (1024px) with a 40px gap; compositions are asymmetric (e.g. 5/7, 4/8, 7/5 with offsets).
+- Chapter padding: 64px mobile, 112px tablet, 144–160px desktop.
+- Breakpoints (Tailwind defaults): `sm` 640, `md` 768, `lg` 1024, `xl` 1280. Hero headline and lead sit side by side only from `xl`.
+- Line length: body copy ≤ ~34rem.
 
-Desktop content container:
+## 5. Surfaces, borders, radii
 
-- max width: `1280px–1320px`
-- horizontal padding: `32px–48px`
+- Chapters: `bg-navy` (with `data-header="dark"`) or `bg-light` / `bg-white` (`data-header="light"`). No section container wraps a whole section.
+- Hairlines: 1px `border-line*`; ruled lists and 2-up grids with vertical dividers replace cards.
+- Radii: 12px media frames (`media-frame`, `media-frame-dark`), 8px buttons and fields, 10–14px phone captures. Nothing above 16px.
+- Shadow: media frames only — a 1px ring plus two very soft layers.
 
-Tablet:
+## 6. Components
 
-- horizontal padding: `24px–32px`
+| Component | Where | Notes |
+|---|---|---|
+| Header | `components/layout/header.tsx` | Fixed, 64px, translucent navy or light depending on the chapter underneath (`HeaderTheme`), 250ms crossfade |
+| Desktop dropdowns | `desktop-nav.tsx` | One shared panel for Services and Work; resizes 220ms and slides content between menus |
+| Mobile menu | `mobile-menu.tsx` | Full screen below the header, accordions, pinned CTA, page inert + scroll lock |
+| Buttons | `components/ui/button.tsx` | `ButtonLink` primary (action blue) and hairline secondary; `TextLink` with underline and arrow |
+| Page hero | `components/sections/page-hero.tsx` | Breadcrumb, two-tone H1, lead, actions or facts, optional media |
+| Device pair | `device-pair.tsx` | Real desktop capture with the same site's phone capture overlapping |
+| Spec sheet | `components/ui/spec-sheet.tsx` | Typographic evidence panel for services without publishable screens |
+| Process track | `process-track.tsx` | 1px track that fills on scroll (horizontal ≥ lg, vertical below) |
+| Closing CTA | `closing-cta.tsx` | Ends every page: two-tone headline, one action, email if configured |
+| Live-work window | `components/home/live-work.tsx` | Homepage hero: cycles real captures every 6s with tabs and progress |
+| Soulmate story | `soulmate-story.tsx` | Four real builder states with segmented progress |
+| Work video | `work-video.tsx` | Muted clip over its poster; loads and plays only when ≥60% visible |
 
-Mobile:
+## 7. Motion
 
-- horizontal padding: `18px–20px`
+Tokens (`app/globals.css`): `--ease-out: cubic-bezier(.165,.84,.44,1)`, `--ease-io: cubic-bezier(.455,.03,.515,.955)`, `--ease-in: cubic-bezier(.32,0,.67,0)`.
 
-Section vertical rhythm:
+| Interaction | Timing |
+|---|---|
+| Hover (colour, underline, brightness 1.04, arrow 3px) | 100ms in / 250ms out |
+| Menus and overlays (opacity + scale .98→1) | 180ms; panel resize 220ms |
+| Media swap (crossfade, 4–8px) | 250ms out (ease-in) / 450ms in (ease-out) |
+| Section reveal (headings, leads, media; 12px rise, media 2px blur) | 560ms, 80ms stagger, once |
+| Hero entrance (lines rise 20px with 8px blur, 90ms stagger) | 900ms |
+| Auto-advance (hero window, Soulmate story) | 6s per state; pauses on hover, focus, hidden tab or off-screen |
+| Process track | Scroll-driven CSS (`animation-timeline: view()`), no pinning or scroll capture |
 
-- desktop: `96px–128px`
-- tablet: `72px–96px`
-- mobile: `56px–72px`
+Reduced motion: no entrances, reveals, auto-advance, autoplay video or scroll-linked effects; content is immediately visible and every control still works. Without JavaScript, all content is visible (reveal states apply only once `html[data-motion]` is set).
 
-Use a consistent grid; 12-column on desktop is preferred for complex sections.
+## 8. Imagery
 
-## 5. Surfaces
+- Real captures only (`assets/projects/`), recorded in `assets/captures/*/CAPTURES.md`. Desktop sources 2400px wide, phone sources 780px; served by `next/image` as WebP at the needed size.
+- Crops may focus on detail (product page, cart, builder step) but are never retouched. Floating third-party chat launchers may be hidden before capture.
+- Right-to-left Arabic screens are shown only for projects where English, Arabic and RTL are verified.
+- Clips: muted MP4 + WebM ≤ 1.3MB in `public/media/work/`, with a poster; never autoplay under reduced motion.
 
-Light section:
+## 9. Accessibility
 
-- background: `#F8FAFC` or `#FFFFFF`
-- text: `#0B1320`
-
-Dark section:
-
-- background: `#0B1320`
-- text: white
-- muted text: approximately `rgba(255,255,255,.68)`
-
-Avoid alternating dark/light every tiny section. Group content into larger visual chapters.
-
-## 6. Cards
-
-Recommended:
-
-- radius: `12px–16px`
-- 1px subtle border
-- minimal shadow, if any
-- meaningful padding: `24px–32px`
-
-Cards should not all float with heavy shadows. Prefer structure and borders.
-
-## 7. Buttons
-
-Primary:
-
-- blue background `#3B82F6`
-- white text
-- height approximately `46px–50px`
-- radius `10px–12px`
-- subtle hover lift or brightness shift
-
-Secondary on dark:
-
-- transparent/dark surface
-- white border at low opacity
-- white text
-
-Secondary on light:
-
-- white/light surface
-- navy border
-- navy text
-
-Use arrow icons sparingly and consistently.
-
-## 8. Iconography
-
-Use a simple outline icon family (Lucide is suitable).
-
-Rules:
-
-- consistent stroke weight
-- mostly 18–24px
-- blue accents for service/feature icons
-- avoid mixing filled cartoon icons with outline icons
-
-## 9. Imagery and mockups
-
-Preferred:
-
-- actual screenshots of Business Craft projects
-- laptop/phone/tablet compositions
-- dashboard/product screens
-- simple environmental product shots only when they support the section
-
-Avoid:
-
-- unrelated stock-office teams
-- obvious AI faces
-- generic handshake imagery
-- futuristic CGI as a substitute for work samples
-
-Project mockups should preserve the actual project UI. Do not redesign a client project merely to make the portfolio card prettier.
-
-## 10. Motion
-
-Motion must remain restrained:
-
-- 250–500ms transitions
-- opacity + 8–16px translate for reveal
-- small hover elevation for interactive cards
-- simple image parallax only if it does not hurt performance
-- support `prefers-reduced-motion`
-
-Do not use scroll-jacking, long intro animations, or constant floating elements.
-
-## 11. Responsive behavior
-
-Hero:
-
-- desktop: text + product visual side by side
-- mobile: text first, visual second
-- do not shrink desktop typography blindly; use responsive clamps
-
-Navigation:
-
-- desktop links visible
-- mobile compact menu/drawer
-- persistent main CTA may become a menu item on small screens
-
-Project grids:
-
-- 2–3 columns desktop depending on card size
-- 2 columns tablet
-- 1 column mobile
-
-Service cards:
-
-- 4 columns desktop if readable
-- 2 columns tablet
-- 1 column mobile
-
-## 12. Accessibility
-
-Required:
-
-- WCAG AA contrast
-- semantic headings
-- keyboard navigation
-- visible focus states
-- accessible button/link names
-- meaningful image alt text
-- form labels, not placeholders-only
-- errors announced clearly
-- touch targets around 44px minimum
-
-## 13. Design QA checklist
-
-Before shipping each page:
-
-- Does it still look like `references/03-approved-brand-board.png`?
-- Is blue used as an accent rather than flooding the page?
-- Are real product visuals more prominent than decoration?
-- Is there enough whitespace?
-- Are claims factual?
-- Are mobile layouts intentionally designed?
-- Are hover/focus/active states complete?
-- Is there any section that looks like a generic SaaS template? If yes, simplify/rework it.
+- Landmarks, one H1 per page, ordered headings, breadcrumbs with `aria-current`.
+- Visible focus ring (2px accent, 3px offset) on everything focusable.
+- Menus: `aria-expanded`, Escape closes and restores focus, outside click closes, arrow keys move within panels.
+- Tabs (hero window, Soulmate story): `role="tab"`, roving tabindex, arrow keys.
+- Touch targets ≥ 44px; contrast ≥ 4.5:1 for text.
+- Forms: visible labels, inline errors linked with `aria-describedby`, focus moves to the first error or the result.
