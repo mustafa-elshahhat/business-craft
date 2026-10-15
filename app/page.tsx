@@ -17,7 +17,7 @@ export const metadata: Metadata = pageMetadata({ description: siteConfig.descrip
 /**
  * Homepage, "Live Work" direction: real shipped work, precise motion and a
  * calm business presentation. Testimonials stay out until real, approved
- * quotes exist (docs/CONTENT_AND_PROJECTS.md §5).
+ * quotes exist.
  */
 export default function HomePage() {
   return (

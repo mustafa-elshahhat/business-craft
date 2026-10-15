@@ -58,7 +58,7 @@ export const siteConfig = {
 export const primaryCta = { label: "Get a Free Consultation", href: "/contact" } as const;
 export const secondaryCta = { label: "See Our Work", href: "/work" } as const;
 
-/** Locked brand assets (docs/BRAND_ASSETS.md). Paths are URL-encoded. */
+/** Locked brand assets. Paths are URL-encoded. */
 export const brandAssets = {
   compactLogo: {
     dark: { src: "/brand/logo/compact%20logo%20dark.svg", width: 1342.35, height: 389.01 },

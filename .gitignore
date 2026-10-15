@@ -1,6 +1,4 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
-# dependencies
+# Dependencies
 /node_modules
 /.pnp
 .pnp.*
@@ -10,42 +8,35 @@
 !.yarn/releases
 !.yarn/versions
 
-# testing
-/coverage
-
-# next.js
+# Build output and caches
 /.next/
 /out/
-
-# production
 /build
+/coverage
+*.tsbuildinfo
+next-env.d.ts
 
-# misc
-.DS_Store
-*.pem
+# Environment (only the example is committed)
+.env*
+!.env.example
 
-# debug
+# Deployment
+.vercel
+
+# Logs and OS files
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
+.DS_Store
+Thumbs.db
+*.pem
 
-# env files (can opt-in for committing if needed)
-.env*
-!.env.example
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-# Brand QA output (regenerate with scripts/brand/qa_contact_sheet.py).
-/docs/brand/qa/
-
-# Raw capture masters stay out of git; only the verification notes are kept.
-/assets/captures/**
-!/assets/captures/*/
-!/assets/captures/*/CAPTURES.md
-!/assets/captures/*/FINDINGS.md
+# Local workspace: agent files, design docs, references and capture masters.
+# Not part of the production source.
+/.claude/
+/docs/
+/references/
+/assets/captures/
+/AGENTS.md
+/CLAUDE.md

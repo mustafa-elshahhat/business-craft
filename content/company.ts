@@ -1,5 +1,5 @@
 /**
- * Company content shared across pages (docs/PAGE_BLUEPRINTS.md).
+ * Company content shared across pages.
  * No numeric, service-level or team claims.
  */
 export const principles = [

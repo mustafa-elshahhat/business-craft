@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /*
- * Business Craft design tokens (docs/DESIGN_SYSTEM.md), "Live Work" direction.
+ * Business Craft design tokens, "Live Work" direction.
  * The default Tailwind palette is removed so only approved colours exist.
  * Logo-mark blues live inside the logo SVGs and are not UI tokens.
  */

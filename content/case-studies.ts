@@ -36,10 +36,10 @@ import ztsProduct from "@/assets/projects/zts-fashion-product.jpg";
 import ztsProductMobile from "@/assets/projects/zts-fashion-product-mobile.jpg";
 
 /**
- * Case studies (docs/CONTENT_AND_PROJECTS.md §4).
+ * Case studies.
  *
  * Every statement describes what the live site visibly does, verified by
- * capture in October 2026 (assets/captures/<project>/CAPTURES.md). No
+ * capture of the live sites in October 2026. No
  * results, metrics, dates, clients' internal facts or technology stacks.
  */
 export type Shot = { src: StaticImageData; alt: string; caption?: string };

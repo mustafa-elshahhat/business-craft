@@ -1,11 +1,11 @@
 import type { serviceSlugs } from "./routes";
 
 /**
- * Core services (docs/BUSINESS_CRAFT_MASTER_SPEC.md §1, docs/PAGE_BLUEPRINTS.md §7–10).
+ * Core services.
  *
  * Copy describes what Business Craft offers. It makes no provider, platform
  * or delivery-model claims the owner has not confirmed, and proof is limited
- * to verified projects (docs/CONTENT_AND_PROJECTS.md).
+ * to verified projects.
  */
 export type ServiceSlug = (typeof serviceSlugs)[number];
 

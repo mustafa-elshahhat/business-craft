@@ -15,7 +15,7 @@ import { ServiceIndex } from "./service-index";
 const saad = getProject("saad-logistic");
 const systemsProjects = projects.filter((project) => project.category === "Systems");
 
-/** Capabilities per service, from docs/PAGE_BLUEPRINTS.md §7–10. No provider or platform claims. */
+/** Capabilities per service. No provider or platform claims. */
 const capabilities: Record<ServiceSlug, string[]> = {
   websites: ["Responsive on every screen", "Fast and SEO-friendly", "Structured around your goals", "Clear calls to action"],
   "e-commerce": ["Catalogue and categories", "Product variants", "Cart and checkout", "English and Arabic storefronts"],

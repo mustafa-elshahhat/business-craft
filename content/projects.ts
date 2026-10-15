@@ -11,10 +11,10 @@ import saadHome from "@/assets/projects/saad-logistic-desktop.jpg";
 import saadHomeMobile from "@/assets/projects/saad-logistic-home-mobile.jpg";
 
 /**
- * Portfolio projects (docs/CONTENT_AND_PROJECTS.md).
+ * Portfolio projects.
  *
  * Only facts verified on the live sites are published (captured October
- * 2026, evidence in assets/captures/<project>/CAPTURES.md). Screenshots are
+ * 2026). Screenshots are
  * captures of the live sites; the only change is that a floating
  * third-party chat launcher was hidden before capture where present.
  *
@@ -111,7 +111,7 @@ export const projects: readonly Project[] = [
   },
   /** A separate project from Saad Logistic. Not published until a verified public visual exists. */
   { slug: "slc-logistics", name: "SLC Logistics", category: null, summary: null, liveUrl: null, featured: false },
-  /** Screens show client logos and are not published (docs/CONTENT_AND_PROJECTS.md). */
+  /** Screens show client logos and are not published. */
   { slug: "auto-parts-pos", name: "Auto Parts POS", category: "Systems", summary: "Point of sale for an auto-parts retailer.", liveUrl: null, featured: false },
   { slug: "lap-service-pos", name: "Lap Service POS", category: "Systems", summary: "Point of sale for a repair workshop.", liveUrl: null, featured: false },
   /** Scope not yet verified: not used as Systems proof. */
