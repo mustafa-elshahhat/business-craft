@@ -32,11 +32,10 @@ yarn-error.log*
 Thumbs.db
 *.pem
 
-# Local workspace: agent files, design docs, references and capture masters.
+# Local workspace: agent files, design docs and references.
 # Not part of the production source.
 /.claude/
 /docs/
 /references/
-/assets/captures/
 /AGENTS.md
 /CLAUDE.md

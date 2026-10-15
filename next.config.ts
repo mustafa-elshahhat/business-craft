@@ -18,10 +18,6 @@ const nextConfig: NextConfig = {
       { source: "/services/systems", destination: "/services/business-systems", permanent: true },
     ];
   },
-  async rewrites() {
-    // Browsers request /favicon.ico by default; serve the locked brand asset.
-    return [{ source: "/favicon.ico", destination: "/brand/favicon/favicon.ico" }];
-  },
 };
 
 export default nextConfig;

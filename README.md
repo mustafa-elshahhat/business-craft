@@ -1,15 +1,17 @@
 # Business Craft
 
-Marketing website for Business Craft.
+Marketing website for Business Craft, a studio that designs and builds websites, e-commerce stores, business systems and mobile apps.
 
-**Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4. Requires Node.js 20.9+.
+**Stack:** Next.js 16 (App Router) · React 19 · TypeScript · Tailwind CSS 4
+
+**Requirements:** Node.js 20.9 or newer
 
 ```sh
 npm install
 npm run dev      # http://localhost:3000
 npm run check    # lint + typecheck
-npm run build
-npm run start
+npm run build    # production build
+npm run start    # serve the production build
 ```
 
 ## Environment variables
