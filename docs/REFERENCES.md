@@ -2,6 +2,8 @@
 
 > **Historical.** This is part of the original pre-build brief. The shipped site is documented in `README.md`, `docs/DESIGN_SYSTEM.md`, `docs/PAGE_BLUEPRINTS.md` and `docs/CONTENT_AND_PROJECTS.md`; where they differ, those files win. Concept images may show placeholder content that must not be published.
 
+> **Archived images.** The concept images `references/01`–`07` are no longer stored in this repository (removed to keep the Git history small). They are archived outside the repo at `business-craft-archive/references/` (with `SHA256SUMS`) and in the pre-cleanup backup bundle `DevPortfolio-before-cleanup.bundle`. Only `references/logo/approved/` remains in the repo.
+
 ## `01-direction-options.png`
 
 Original comparison of three visual directions.

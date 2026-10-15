@@ -9,7 +9,7 @@
 | `references/logo/approved/` | The 12 approved logo PNGs: the **immutable raster masters** and visual source of truth. Never edit, recompress, resize or replace them. |
 | `public/brand/` | The **production website assets**: vector logos and favicon/app icons generated from the masters. |
 | `scripts/brand/` | Maintenance utilities that reproduce and QA the production assets. They never run automatically; see `scripts/brand/README.md`. |
-| `docs/brand/qa/logo contact sheet.png` | QA record: approved PNG vs rendered SVG for all 12 assets. Documentation only; not shipped. |
+| `docs/brand/qa/` | QA output location (not committed, ignored by Git). Regenerate the approved-PNG-vs-SVG contact sheet with `scripts/brand/qa_contact_sheet.py`; the last committed sheet is archived in `business-craft-archive/docs-brand-qa/`. |
 
 All production SVGs:
 - have transparent backgrounds;

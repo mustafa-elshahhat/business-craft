@@ -75,4 +75,5 @@ Publish only verified facts. Project facts and their evidence are recorded in [`
 - [`docs/CONTENT_AND_PROJECTS.md`](docs/CONTENT_AND_PROJECTS.md) — projects, verified facts, publishing rules
 - [`docs/BRAND_ASSETS.md`](docs/BRAND_ASSETS.md) — locked logo system
 - [`docs/BUSINESS_CRAFT_MASTER_SPEC.md`](docs/BUSINESS_CRAFT_MASTER_SPEC.md) — brand and positioning
-- `docs/AGENT_MASTER_PROMPT.md`, `docs/REFERENCES.md`, `references/` — original brief and concept references (historical)
+- `docs/AGENT_MASTER_PROMPT.md`, `docs/REFERENCES.md` — original brief and concept reference index (historical; the concept images are archived outside the repo)
+- `references/logo/approved/` — immutable approved logo masters

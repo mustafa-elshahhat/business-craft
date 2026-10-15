@@ -41,6 +41,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Brand QA output (regenerate with scripts/brand/qa_contact_sheet.py).
+/docs/brand/qa/
+
 # Raw capture masters stay out of git; only the verification notes are kept.
 /assets/captures/**
 !/assets/captures/*/

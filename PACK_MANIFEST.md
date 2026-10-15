@@ -14,10 +14,12 @@
 
 ## Images
 
-- `references/01-direction-options.png` — original 3-direction exploration
-- `references/02-selected-direction-A-markup.png` — selected direction annotation
-- `references/03-approved-brand-board.png` — approved identity
-- `references/04-homepage-reference.png` — homepage
-- `references/05-work-case-studies-reference.png` — work page
-- `references/06-websites-service-reference.png` — website service page/template
-- `references/07-zts-project-detail-reference.png` — case-study detail template
+> **Archived images.** The concept images `references/01`–`07` are no longer stored in this repository (removed to keep the Git history small). They are archived outside the repo at `business-craft-archive/references/` (with `SHA256SUMS`) and in the pre-cleanup backup bundle `DevPortfolio-before-cleanup.bundle`. Only `references/logo/approved/` remains in the repo.
+
+- `references/01-direction-options.png` — original 3-direction exploration (archived)
+- `references/02-selected-direction-A-markup.png` — selected direction annotation (archived)
+- `references/03-approved-brand-board.png` — approved identity (archived)
+- `references/04-homepage-reference.png` — homepage (archived)
+- `references/05-work-case-studies-reference.png` — work page (archived)
+- `references/06-websites-service-reference.png` — website service page/template (archived)
+- `references/07-zts-project-detail-reference.png` — case-study detail template (archived)

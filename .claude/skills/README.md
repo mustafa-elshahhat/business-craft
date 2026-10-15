@@ -63,7 +63,7 @@ Visual QA uses **Playwright with the pre-installed Chromium**, not a skill.
    - `design:accessibility-review` and automated axe checks.
    - Lighthouse / Core Web Vitals.
    - `code-review` and `security-review`.
-   - A final visual comparison against `references/03-approved-brand-board.png`.
+   - A final visual comparison against the approved brand board (`03-approved-brand-board.png`, archived outside the repo; see `docs/REFERENCES.md`).
 
 Impeccable findings that would change the brand are reported to the owner as proposals and are never applied.
 
